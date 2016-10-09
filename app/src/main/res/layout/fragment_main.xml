@@ -9,10 +9,10 @@
     tools:showIn="@layout/activity_main"
     tools:context=".WatchlistFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"/>
+    <ListView
+        android:id="@+id/listview_watchlist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </FrameLayout>
 
