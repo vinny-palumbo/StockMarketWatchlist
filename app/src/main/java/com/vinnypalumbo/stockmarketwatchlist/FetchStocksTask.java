@@ -43,11 +43,33 @@ public class FetchStocksTask extends AsyncTask<Void, Void, Stock[]> {
         final String QUERY = "query";
         final String RESULTS = "results";
         final String QUOTE = "quote";
+
         final String SYMBOL = "symbol";
         final String NAME = "Name";
         final String PRICE = "Ask";
-        final String DOLLAR_CHANGE = "Change";
         final String PERCENT_CHANGE = "ChangeinPercent";
+        final String DOLLAR_CHANGE = "Change";
+
+        final String OPEN = "Open";
+        final String PREVIOUS = "PreviousClose";
+        final String DAY_RANGE = "DaysRange";
+        final String YEAR_RANGE = "YearRange";
+        final String TARGET = "OneyrTargetPrice";
+        final String FIFTY_AVERAGE = "FiftydayMovingAverage";
+        final String TWO_HUNDRED_AVERAGE = "TwoHundreddayMovingAverage";
+        final String VOLUME = "Volume";
+        final String AVERAGE_VOLUME = "AverageDailyVolume";
+
+        final String BOOK_VALUE = "BookValue";
+        final String MARKET_CAP = "MarketCapitalization";
+        final String EBITDA = "EBITDA";
+        final String PE_RATIO = "PERatio";
+        final String EPS_ESTIMATE_CURRENT = "EPSEstimateCurrentYear";
+        final String EPS_ACTUAL_CURRENT = "EarningsShare";
+        final String EPS_ESTIMATE_NEXT = "EPSEstimateNextYear";
+        final String DIVIDEND_DOLLAR = "DividendShare";
+        final String DIVIDEND_YIELD = "DividendYield";
+        final String SHORT_RATIO = "ShortRatio";
 
         JSONObject watchlistJson = new JSONObject(watchlistJsonStr);
         JSONObject queryObject = watchlistJson.getJSONObject(QUERY);
@@ -62,6 +84,31 @@ public class FetchStocksTask extends AsyncTask<Void, Void, Stock[]> {
             String variationPercentage;
             String variationAbsolute;
 
+            String open;
+            String previousClose;
+            String daysRange;
+            String yearRange;
+            String oneYrTargetPrice;
+            String fiftyDayMovingAverage;
+            String twoHundredDayMovingAverage;
+            String volume;
+            String averageDailyVolume;
+
+            String bookValue;
+            String marketCapitalization;
+            String ebitda;
+            String peRatio;
+            String epsEstimateCurrentYear;
+            String earningsShare;
+            String epsEstimateNextYear;
+            String dividendShare;
+            String dividendYield;
+            String shortRatio;
+
+            // To be formatted
+            String dividend;
+
+
             // Get the JSON object representing the stock object
             JSONObject stockObject = quoteArray.getJSONObject(i);
 
@@ -69,10 +116,37 @@ public class FetchStocksTask extends AsyncTask<Void, Void, Stock[]> {
             stockSymbol = stockObject.getString(SYMBOL);
             companyName = stockObject.getString(NAME);
             currentPrice = stockObject.getString(PRICE);
-            variationPercentage = stockObject.getString(DOLLAR_CHANGE);
-            variationAbsolute = stockObject.getString(PERCENT_CHANGE);
+            variationPercentage = stockObject.getString(PERCENT_CHANGE);
+            variationAbsolute = stockObject.getString(DOLLAR_CHANGE);
 
-            resultWatchlist[i] = new Stock(stockSymbol, companyName, currentPrice, variationPercentage, variationAbsolute);
+            open = stockObject.getString(OPEN);
+            previousClose = stockObject.getString(PREVIOUS);
+            daysRange = stockObject.getString(DAY_RANGE);
+            yearRange = stockObject.getString(YEAR_RANGE);
+            oneYrTargetPrice = stockObject.getString(TARGET);
+            fiftyDayMovingAverage = stockObject.getString(FIFTY_AVERAGE);
+            twoHundredDayMovingAverage = stockObject.getString(TWO_HUNDRED_AVERAGE);
+            volume = stockObject.getString(VOLUME);
+            averageDailyVolume = stockObject.getString(AVERAGE_VOLUME);
+
+            bookValue = stockObject.getString(BOOK_VALUE);
+            marketCapitalization = stockObject.getString(MARKET_CAP);
+            ebitda = stockObject.getString(EBITDA);
+            peRatio = stockObject.getString(PE_RATIO);
+            epsEstimateCurrentYear = stockObject.getString(EPS_ESTIMATE_CURRENT);
+            earningsShare = stockObject.getString(EPS_ACTUAL_CURRENT);
+            epsEstimateNextYear = stockObject.getString(EPS_ESTIMATE_NEXT);
+            dividendShare = stockObject.getString(DIVIDEND_DOLLAR);
+            dividendYield = stockObject.getString(DIVIDEND_YIELD);
+            shortRatio = stockObject.getString(SHORT_RATIO);
+
+            // Format dividend
+            dividend = "$" + dividendShare + "/" + dividendYield + "%";
+
+
+            resultWatchlist[i] = new Stock(stockSymbol, companyName, currentPrice, variationPercentage, variationAbsolute
+                    , open, previousClose, daysRange, yearRange, oneYrTargetPrice, fiftyDayMovingAverage, twoHundredDayMovingAverage, volume, averageDailyVolume
+                    , bookValue, marketCapitalization, ebitda, peRatio, epsEstimateCurrentYear, earningsShare, epsEstimateNextYear, dividend, shortRatio);
         }
 
         for (Stock stock : resultWatchlist) {
