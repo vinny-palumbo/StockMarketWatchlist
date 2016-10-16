@@ -58,7 +58,7 @@ public class FetchStocksTask extends AsyncTask<Void, Void, Stock[]> {
         for(int i = 0; i < quoteArray.length(); i++) {
             String stockSymbol;
             String companyName;
-            double currentPrice;
+            String currentPrice;
             String variationPercentage;
             String variationAbsolute;
 
@@ -68,7 +68,7 @@ public class FetchStocksTask extends AsyncTask<Void, Void, Stock[]> {
             // Get the properties of each stock objects
             stockSymbol = stockObject.getString(SYMBOL);
             companyName = stockObject.getString(NAME);
-            currentPrice = Double.parseDouble(stockObject.getString(PRICE));
+            currentPrice = stockObject.getString(PRICE);
             variationPercentage = stockObject.getString(DOLLAR_CHANGE);
             variationAbsolute = stockObject.getString(PERCENT_CHANGE);
 
@@ -95,7 +95,7 @@ public class FetchStocksTask extends AsyncTask<Void, Void, Stock[]> {
             // Construct the URL for the query
             StringBuilder urlStringBuilder = new StringBuilder();
             urlStringBuilder.append("https://query.yahooapis.com/v1/public/yql?q=");
-            urlStringBuilder.append(URLEncoder.encode("select * from yahoo.finance.quotes where symbol in (\"GOOGL\",\"AAPL\",\"AMZN\",\"FB\",\"TWTR\")", "UTF-8"));
+            urlStringBuilder.append(URLEncoder.encode("select * from yahoo.finance.quotes where symbol in (\"GOOG\",\"AAPL\",\"AMZN\",\"FB\",\"TWTR\")", "UTF-8"));
             urlStringBuilder.append("&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=");
 
             URL url = new URL(urlStringBuilder.toString());

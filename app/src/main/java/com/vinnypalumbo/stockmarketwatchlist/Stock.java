@@ -7,11 +7,11 @@ package com.vinnypalumbo.stockmarketwatchlist;
 public class Stock {
     String stockSymbol;
     String companyName;
-    double currentPrice;
+    String currentPrice;
     String variationPercentage;
     String variationAbsolute;
 
-    public Stock(String stockSymbol, String companyName, double currentPrice, String variationPercentage, String variationAbsolute){
+    public Stock(String stockSymbol, String companyName, String currentPrice, String variationPercentage, String variationAbsolute){
         this.stockSymbol = stockSymbol;
         this.companyName = companyName;
         this.currentPrice = currentPrice;

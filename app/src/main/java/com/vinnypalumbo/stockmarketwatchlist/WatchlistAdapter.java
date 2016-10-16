@@ -31,7 +31,7 @@ public class WatchlistAdapter extends ArrayAdapter<Stock> {
         companyNameTextView.setText(stock.companyName);
 
         TextView currentPriceTextView = (TextView) rootView.findViewById(R.id.list_item_current_price);
-        currentPriceTextView.setText(String.valueOf(stock.currentPrice));
+        currentPriceTextView.setText(stock.currentPrice);
 
         TextView variationPercentageTextView = (TextView) rootView.findViewById(R.id.list_item_variation_percentage);
         variationPercentageTextView.setText(stock.variationPercentage);
