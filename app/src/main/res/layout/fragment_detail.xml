@@ -11,6 +11,570 @@
     tools:context=".DetailFragment"
     android:orientation="vertical">
 
-    
+    <LinearLayout
+        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:gravity="top"
+        android:layout_gravity="left"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/current_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="left"
+            android:textSize="@dimen/very_large_text_size"
+            android:text="116.98"/>
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="@dimen/detail_fragment_variation_margin"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/variation_absolute"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textSize="@dimen/medium_text_size"
+                android:text="-0.36$"/>
+
+            <TextView
+                android:id="@+id/variation_percentage"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textSize="@dimen/medium_text_size"
+                android:text="-0.31%"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_weight="4"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:paddingRight="@dimen/list_item_margin"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/detail_fragment_details_margin"
+                android:layout_marginBottom="@dimen/detail_fragment_details_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/Open_label"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="Open"/>
+
+                <TextView
+                    android:id="@+id/Open_value"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="right"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="116.79"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/detail_fragment_details_margin"
+                android:layout_marginBottom="@dimen/detail_fragment_details_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/PreviousClose_label"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="9"
+                    android:gravity="left"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="Prev. Close"/>
+
+                <TextView
+                    android:id="@+id/PreviousClose_value"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="11"
+                    android:gravity="right"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="117.34"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/detail_fragment_details_margin"
+                android:layout_marginBottom="@dimen/detail_fragment_details_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/DaysRange_label"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="left"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="Dy.Range" />
+
+                <TextView
+                    android:id="@+id/DaysRange_value"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:gravity="right"
+                    android:textSize="@dimen/very_small_text_size"
+                    android:text="115.72 - 117.44"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/detail_fragment_details_margin"
+                android:layout_marginBottom="@dimen/detail_fragment_details_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/YearRange_label"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="left"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="Yr.Range"/>
+
+                <TextView
+                    android:id="@+id/YearRange_value"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:gravity="right"
+                    android:textSize="@dimen/very_small_text_size"
+                    android:text="89.47 - 123.82"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/detail_fragment_details_margin"
+                android:layout_marginBottom="@dimen/detail_fragment_details_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/OneyrTargetPrice_label"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="1y Target"  />
+
+                <TextView
+                    android:id="@+id/OneyrTargetPrice_value"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="126.11"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/detail_fragment_details_margin"
+                android:layout_marginBottom="@dimen/detail_fragment_details_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/FiftydayMovingAverage_label"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="11"
+                    android:gravity="left"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="50d Mov.Avg" />
+
+                <TextView
+                    android:id="@+id/FiftydayMovingAverage_value"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="9"
+                    android:gravity="right"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="111.28"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/detail_fragment_details_margin"
+                android:layout_marginBottom="@dimen/detail_fragment_details_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/TwoHundreddayMovingAverage_label"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="12"
+                    android:gravity="left"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="200d Mov.Avg" />
+
+                <TextView
+                    android:id="@+id/TwoHundreddayMovingAverage_value"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="9"
+                    android:gravity="right"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="103.56"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/detail_fragment_details_margin"
+                android:layout_marginBottom="@dimen/detail_fragment_details_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/Volume_label"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="Day Volume" />
+
+                <TextView
+                    android:id="@+id/Volume_value"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="35,192,406"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/detail_fragment_details_margin"
+                android:layout_marginBottom="@dimen/detail_fragment_details_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/AverageDailyVolume_label"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="Avg.Volume" />
+
+                <TextView
+                    android:id="@+id/AverageDailyVolume_value"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="36,465,300"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:paddingLeft="@dimen/list_item_margin"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/detail_fragment_details_margin"
+                android:layout_marginBottom="@dimen/detail_fragment_details_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/BookValue_label"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="9"
+                    android:gravity="left"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="Book Value"/>
+
+                <TextView
+                    android:id="@+id/BookValue_value"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="11"
+                    android:gravity="right"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="23.46"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/detail_fragment_details_margin"
+                android:layout_marginBottom="@dimen/detail_fragment_details_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/MarketCapitalization_label"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="9"
+                    android:gravity="left"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="Market Cap."/>
+
+                <TextView
+                    android:id="@+id/MarketCapitalization_value"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="11"
+                    android:gravity="right"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="630.34B"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/detail_fragment_details_margin"
+                android:layout_marginBottom="@dimen/detail_fragment_details_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/EBITDA_label"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="EBITDA" />
+
+                <TextView
+                    android:id="@+id/EBITDA_value"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="right"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="73.96B"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/detail_fragment_details_margin"
+                android:layout_marginBottom="@dimen/detail_fragment_details_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/PERatio_label"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="left"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="P/E Ratio"/>
+
+                <TextView
+                    android:id="@+id/PERatio_value"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:gravity="right"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="13.64"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/detail_fragment_details_margin"
+                android:layout_marginBottom="@dimen/detail_fragment_details_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/EPSEstimateCurrentYear_label"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="left"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="Pred.EPS Curr." />
+
+                <TextView
+                    android:id="@+id/EPSEstimateCurrentYear_value"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="8.26"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/detail_fragment_details_margin"
+                android:layout_marginBottom="@dimen/detail_fragment_details_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/EarningsShare_label"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="left"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="Actu.EPS Curr."  />
+
+                <TextView
+                    android:id="@+id/EarningsShare_value"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="8.58"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/detail_fragment_details_margin"
+                android:layout_marginBottom="@dimen/detail_fragment_details_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/EPSEstimateNextYear_label"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="11"
+                    android:gravity="left"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="Pred.EPS Nxt." />
+
+                <TextView
+                    android:id="@+id/EPSEstimateNextYear_value"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="9"
+                    android:gravity="right"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="8.96"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/detail_fragment_details_margin"
+                android:layout_marginBottom="@dimen/detail_fragment_details_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/Dividend_label"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="Dividend" />
+
+                <TextView
+                    android:id="@+id/Dividend_value"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="right"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="$2.28/1.96%"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/detail_fragment_details_margin"
+                android:layout_marginBottom="@dimen/detail_fragment_details_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ShortRatio_label"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="Short Ratio" />
+
+                <TextView
+                    android:id="@+id/ShortRatio_value"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:textSize="@dimen/small_text_size"
+                    android:text="1.59"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_weight="4"
+        android:orientation="horizontal">
+
+    </LinearLayout>
 
 </LinearLayout>
