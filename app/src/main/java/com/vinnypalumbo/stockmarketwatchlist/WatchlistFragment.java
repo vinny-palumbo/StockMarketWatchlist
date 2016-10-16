@@ -53,7 +53,32 @@ public class WatchlistFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Stock stock = mWatchlistAdapter.getItem(position);
-                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                Intent intent = new Intent(getActivity(), DetailActivity.class)
+                        .putExtra("stockSymbol", stock.stockSymbol)
+                        .putExtra("companyName", stock.companyName)
+                        .putExtra("currentPrice", stock.currentPrice)
+                        .putExtra("variationPercentage", stock.variationPercentage)
+                        .putExtra("variationAbsolute", stock.variationAbsolute)
+
+                        .putExtra("open", stock.open)
+                        .putExtra("previousClose", stock.previousClose)
+                        .putExtra("daysRange", stock.daysRange)
+                        .putExtra("yearRange", stock.yearRange)
+                        .putExtra("oneYrTargetPrice", stock.oneYrTargetPrice)
+                        .putExtra("fiftyDayMovingAverage", stock.fiftyDayMovingAverage)
+                        .putExtra("twoHundredDayMovingAverage", stock.twoHundredDayMovingAverage)
+                        .putExtra("volume", stock.volume)
+                        .putExtra("averageDailyVolume", stock.averageDailyVolume)
+
+                        .putExtra("bookValue", stock.bookValue)
+                        .putExtra("marketCapitalization", stock.marketCapitalization)
+                        .putExtra("ebitda", stock.ebitda)
+                        .putExtra("peRatio", stock.peRatio)
+                        .putExtra("epsEstimateCurrentYear", stock.epsEstimateCurrentYear)
+                        .putExtra("earningsShare", stock.earningsShare)
+                        .putExtra("epsEstimateNextYear", stock.epsEstimateNextYear)
+                        .putExtra("dividend", stock.dividend)
+                        .putExtra("shortRatio", stock.shortRatio);
                 startActivity(intent);
             }
         });
