@@ -46,7 +46,7 @@ public class FetchStocksTask extends AsyncTask<Void, Void, Stock[]> {
 
         final String SYMBOL = "symbol";
         final String NAME = "Name";
-        final String PRICE = "Ask";
+        final String CURRENT_PRICE = "Ask";
         final String PERCENT_CHANGE = "ChangeinPercent";
         final String DOLLAR_CHANGE = "Change";
 
@@ -115,7 +115,7 @@ public class FetchStocksTask extends AsyncTask<Void, Void, Stock[]> {
             // Get the properties of each stock objects
             stockSymbol = stockObject.getString(SYMBOL);
             companyName = stockObject.getString(NAME);
-            currentPrice = stockObject.getString(PRICE);
+            currentPrice = stockObject.getString(CURRENT_PRICE);
             variationPercentage = stockObject.getString(PERCENT_CHANGE);
             variationAbsolute = stockObject.getString(DOLLAR_CHANGE);
 
