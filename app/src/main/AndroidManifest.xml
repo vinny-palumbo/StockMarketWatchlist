@@ -25,6 +25,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.vinnypalumbo.stockmarketwatchlist.MainActivity" />
         </activity>
+
+        <provider
+            android:name=".data.generated.StocksProvider"
+            android:authorities="com.vinnypalumbo.stockmarketwatchlist.data.StocksProvider"
+            android:exported="false" />
+
     </application>
 
 </manifest>

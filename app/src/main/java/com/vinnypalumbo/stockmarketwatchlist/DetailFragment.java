@@ -1,18 +1,130 @@
 package com.vinnypalumbo.stockmarketwatchlist;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.AVERAGE_VOLUME;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.BOOK_VALUE;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.CURRENT_PRICE;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.DAY_RANGE;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.DIVIDEND_DOLLAR;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.DIVIDEND_YIELD;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.DOLLAR_CHANGE;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.EBITDA;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.EPS_ACTUAL_CURRENT;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.EPS_ESTIMATE_CURRENT;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.EPS_ESTIMATE_NEXT;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.FIFTY_AVERAGE;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.MARKET_CAP;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.NAME;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.OPEN;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.PERCENT_CHANGE;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.PE_RATIO;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.PREVIOUS;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.SHORT_RATIO;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.SYMBOL;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.TARGET;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.TWO_HUNDRED_AVERAGE;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.VOLUME;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.YEAR_RANGE;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns._ID;
+
 /**
  * Created by Vincent on 2016-10-14.
  */
 
-public class DetailFragment extends Fragment {
+public class DetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
+
+    private static final String LOG_TAG = DetailFragment.class.getSimpleName();
+    private static final int DETAIL_LOADER = 0;
+
+    private static final String[] DETAIL_COLUMNS = {
+            _ID,
+            SYMBOL,
+            NAME,
+            CURRENT_PRICE,
+            PERCENT_CHANGE,
+            DOLLAR_CHANGE,
+            OPEN,
+            PREVIOUS,
+            DAY_RANGE,
+            YEAR_RANGE,
+            TARGET,
+            FIFTY_AVERAGE,
+            TWO_HUNDRED_AVERAGE,
+            VOLUME,
+            AVERAGE_VOLUME,
+            BOOK_VALUE,
+            MARKET_CAP,
+            EBITDA,
+            PE_RATIO,
+            EPS_ESTIMATE_CURRENT,
+            EPS_ACTUAL_CURRENT,
+            EPS_ESTIMATE_NEXT,
+            DIVIDEND_DOLLAR,
+            DIVIDEND_YIELD,
+            SHORT_RATIO
+    };
+
+    // these constants correspond to the projection defined above, and must change if the
+    // projection changes
+    static final int COL_ID = 0;
+    static final int COL_STOCKS_SYMBOL = 1;
+    static final int COL_STOCKS_NAME = 2;
+    static final int COL_STOCKS_CURRENT_PRICE = 3;
+    static final int COL_STOCKS_PERCENT_CHANGE = 4;
+    static final int COL_STOCKS_DOLLAR_CHANGE = 5;
+    static final int COL_STOCKS_OPEN = 6;
+    static final int COL_STOCKS_PREVIOUS = 7;
+    static final int COL_STOCKS_DAY_RANGE = 8;
+    static final int COL_STOCKS_YEAR_RANGE = 9;
+    static final int COL_STOCKS_TARGET = 10;
+    static final int COL_STOCKS_FIFTY_AVERAGE = 11;
+    static final int COL_STOCKS_TWO_HUNDRED_AVERAGE = 12;
+    static final int COL_STOCKS_VOLUME = 13;
+    static final int COL_STOCKS_AVERAGE_VOLUME = 14;
+    static final int COL_STOCKS_BOOK_VALUE = 15;
+    static final int COL_STOCKS_MARKET_CAP = 16;
+    static final int COL_STOCKS_EBITDA = 17;
+    static final int COL_STOCKS_PE_RATIO = 18;
+    static final int COL_STOCKS_EPS_ESTIMATE_CURRENT = 19;
+    static final int COL_STOCKS_EPS_ACTUAL_CURRENT = 20;
+    static final int COL_STOCKS_EPS_ESTIMATE_NEXT = 21;
+    static final int COL_STOCKS_DIVIDEND_DOLLAR = 22;
+    static final int COL_STOCKS_DIVIDEND_YIELD = 23;
+    static final int COL_STOCKS_SHORT_RATIO = 24;
+
+    private TextView currentPriceTextView;
+    private TextView variationPercentageTextView;
+    private TextView variationAbsoluteTextView;
+    private TextView openTextView;
+    private TextView previousCloseTextView;
+    private TextView daysRangeTextView;
+    private TextView yearRangeTextView;
+    private TextView oneYrTargetPriceTextView;
+    private TextView fiftyDayMovingAverageTextView;
+    private TextView twoHundredDayMovingAverageTextView;
+    private TextView volumeTextView;
+    private TextView averageDailyVolumeTextView;
+    private TextView bookValueTextView;
+    private TextView marketCapitalizationTextView;
+    private TextView ebitdaTextView;
+    private TextView peRatioTextView;
+    private TextView epsEstimateCurrentYearTextView;
+    private TextView earningsShareTextView;
+    private TextView epsEstimateNextYearTextView;
+    private TextView dividendTextView;
+    private TextView shortRatioTextView;
 
     public DetailFragment() {
     }
@@ -22,119 +134,110 @@ public class DetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 
-        // The detail Activity called via intent.  Inspect the intent for data.
-        Intent intent = getActivity().getIntent();
-        if (intent != null  && intent.hasExtra("stockSymbol")
-                            && intent.hasExtra("companyName")
-                            && intent.hasExtra("currentPrice")
-                            && intent.hasExtra("variationPercentage")
-                            && intent.hasExtra("variationAbsolute")
-
-                            && intent.hasExtra("open")
-                            && intent.hasExtra("previousClose")
-                            && intent.hasExtra("daysRange")
-                            && intent.hasExtra("yearRange")
-                            && intent.hasExtra("oneYrTargetPrice")
-                            && intent.hasExtra("fiftyDayMovingAverage")
-                            && intent.hasExtra("twoHundredDayMovingAverage")
-                            && intent.hasExtra("volume")
-                            && intent.hasExtra("averageDailyVolume")
-
-                            && intent.hasExtra("bookValue")
-                            && intent.hasExtra("marketCapitalization")
-                            && intent.hasExtra("ebitda")
-                            && intent.hasExtra("peRatio")
-                            && intent.hasExtra("epsEstimateCurrentYear")
-                            && intent.hasExtra("earningsShare")
-                            && intent.hasExtra("epsEstimateNextYear")
-                            && intent.hasExtra("dividend")
-                            && intent.hasExtra("shortRatio")) {
-
-            String currentPriceStr = intent.getStringExtra("currentPrice");
-            TextView currentPriceTextView = (TextView) rootView.findViewById(R.id.current_price);
-            currentPriceTextView.setText(currentPriceStr);
-
-            String variationPercentageStr = intent.getStringExtra("variationPercentage");
-            TextView variationPercentageTextView = (TextView) rootView.findViewById(R.id.variation_percentage);
-            variationPercentageTextView.setText(variationPercentageStr);
-
-            String variationAbsoluteStr = intent.getStringExtra("variationAbsolute");
-            TextView variationAbsoluteTextView = (TextView) rootView.findViewById(R.id.variation_absolute);
-            variationAbsoluteTextView.setText(variationAbsoluteStr);
-
-            String openStr = intent.getStringExtra("open");
-            TextView openTextView = (TextView) rootView.findViewById(R.id.open_value);
-            openTextView.setText(openStr);
-
-            String previousCloseStr = intent.getStringExtra("previousClose");
-            TextView previousCloseTextView = (TextView) rootView.findViewById(R.id.previousClose_value);
-            previousCloseTextView.setText(previousCloseStr);
-
-            String daysRangeStr = intent.getStringExtra("daysRange");
-            TextView daysRangeTextView = (TextView) rootView.findViewById(R.id.daysRange_value);
-            daysRangeTextView.setText(daysRangeStr);
-
-            String yearRangeStr = intent.getStringExtra("yearRange");
-            TextView yearRangeTextView = (TextView) rootView.findViewById(R.id.yearRange_value);
-            yearRangeTextView.setText(yearRangeStr);
-
-            String oneYrTargetPriceStr = intent.getStringExtra("oneYrTargetPrice");
-            TextView oneYrTargetPriceTextView = (TextView) rootView.findViewById(R.id.oneYrTargetPrice_value);
-            oneYrTargetPriceTextView.setText(oneYrTargetPriceStr);
-
-            String fiftyDayMovingAverageStr = intent.getStringExtra("fiftyDayMovingAverage");
-            TextView fiftyDayMovingAverageTextView = (TextView) rootView.findViewById(R.id.fiftyDayMovingAverage_value);
-            fiftyDayMovingAverageTextView.setText(fiftyDayMovingAverageStr);
-
-            String twoHundredDayMovingAverageStr = intent.getStringExtra("twoHundredDayMovingAverage");
-            TextView twoHundredDayMovingAverageTextView = (TextView) rootView.findViewById(R.id.twoHundredDayMovingAverage_value);
-            twoHundredDayMovingAverageTextView.setText(twoHundredDayMovingAverageStr);
-
-            String volumeStr = intent.getStringExtra("volume");
-            TextView volumeTextView = (TextView) rootView.findViewById(R.id.volume_value);
-            volumeTextView.setText(volumeStr);
-
-            String averageDailyVolumeStr = intent.getStringExtra("averageDailyVolume");
-            TextView averageDailyVolumeTextView = (TextView) rootView.findViewById(R.id.averageDailyVolume_value);
-            averageDailyVolumeTextView.setText(averageDailyVolumeStr);
-
-            String bookValueStr = intent.getStringExtra("bookValue");
-            TextView bookValueTextView = (TextView) rootView.findViewById(R.id.bookValue_value);
-            bookValueTextView.setText(bookValueStr);
-
-            String marketCapitalizationStr = intent.getStringExtra("marketCapitalization");
-            TextView marketCapitalizationTextView = (TextView) rootView.findViewById(R.id.marketCapitalization_value);
-            marketCapitalizationTextView.setText(marketCapitalizationStr);
-
-            String ebitdaStr = intent.getStringExtra("ebitda");
-            TextView ebitdaTextView = (TextView) rootView.findViewById(R.id.ebitda_value);
-            ebitdaTextView.setText(ebitdaStr);
-
-            String peRatioStr = intent.getStringExtra("peRatio");
-            TextView peRatioTextView = (TextView) rootView.findViewById(R.id.peRatio_value);
-            peRatioTextView.setText(peRatioStr);
-
-            String epsEstimateCurrentYearStr = intent.getStringExtra("epsEstimateCurrentYear");
-            TextView epsEstimateCurrentYearTextView = (TextView) rootView.findViewById(R.id.epsEstimateCurrentYear_value);
-            epsEstimateCurrentYearTextView.setText(epsEstimateCurrentYearStr);
-
-            String earningsShareStr = intent.getStringExtra("earningsShare");
-            TextView earningsShareTextView = (TextView) rootView.findViewById(R.id.earningsShare_value);
-            earningsShareTextView.setText(earningsShareStr);
-
-            String epsEstimateNextYearStr = intent.getStringExtra("epsEstimateNextYear");
-            TextView epsEstimateNextYearTextView = (TextView) rootView.findViewById(R.id.epsEstimateNextYear_value);
-            epsEstimateNextYearTextView.setText(epsEstimateNextYearStr);
-
-            String dividendStr = intent.getStringExtra("dividend");
-            TextView dividendTextView = (TextView) rootView.findViewById(R.id.dividend_value);
-            dividendTextView.setText(dividendStr);
-
-            String shortRatioStr = intent.getStringExtra("shortRatio");
-            TextView shortRatioTextView = (TextView) rootView.findViewById(R.id.shortRatio_value);
-            shortRatioTextView.setText(shortRatioStr);
-        }
+        currentPriceTextView = (TextView) rootView.findViewById(R.id.current_price);
+        variationPercentageTextView = (TextView) rootView.findViewById(R.id.variation_percentage);
+        variationAbsoluteTextView = (TextView) rootView.findViewById(R.id.variation_absolute);
+        openTextView = (TextView) rootView.findViewById(R.id.open_value);
+        previousCloseTextView = (TextView) rootView.findViewById(R.id.previousClose_value);
+        daysRangeTextView = (TextView) rootView.findViewById(R.id.daysRange_value);
+        yearRangeTextView = (TextView) rootView.findViewById(R.id.yearRange_value);
+        oneYrTargetPriceTextView = (TextView) rootView.findViewById(R.id.oneYrTargetPrice_value);
+        fiftyDayMovingAverageTextView = (TextView) rootView.findViewById(R.id.fiftyDayMovingAverage_value);
+        twoHundredDayMovingAverageTextView = (TextView) rootView.findViewById(R.id.twoHundredDayMovingAverage_value);
+        volumeTextView = (TextView) rootView.findViewById(R.id.volume_value);
+        averageDailyVolumeTextView = (TextView) rootView.findViewById(R.id.averageDailyVolume_value);
+        bookValueTextView = (TextView) rootView.findViewById(R.id.bookValue_value);
+        marketCapitalizationTextView = (TextView) rootView.findViewById(R.id.marketCapitalization_value);
+        ebitdaTextView = (TextView) rootView.findViewById(R.id.ebitda_value);
+        peRatioTextView = (TextView) rootView.findViewById(R.id.peRatio_value);
+        epsEstimateCurrentYearTextView = (TextView) rootView.findViewById(R.id.epsEstimateCurrentYear_value);
+        earningsShareTextView = (TextView) rootView.findViewById(R.id.earningsShare_value);
+        epsEstimateNextYearTextView = (TextView) rootView.findViewById(R.id.epsEstimateNextYear_value);
+        dividendTextView = (TextView) rootView.findViewById(R.id.dividend_value);
+        shortRatioTextView = (TextView) rootView.findViewById(R.id.shortRatio_value);
 
         return rootView;
     }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        getLoaderManager().initLoader(DETAIL_LOADER, null, this);
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        Log.v(LOG_TAG, "In onCreateLoader");
+        Intent intent = getActivity().getIntent();
+        if (intent == null) {
+            return null;
+        }
+
+        // Now create and return a CursorLoader that will take care of
+        // creating a Cursor for the data being displayed.
+        return new CursorLoader(
+                getActivity(),
+                intent.getData(),
+                DETAIL_COLUMNS,
+                null,
+                null,
+                null
+        );
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        Log.v(LOG_TAG, "In onLoadFinished");
+        if (!data.moveToFirst()) { return; }
+
+        String stockSymbol = data.getString(COL_STOCKS_SYMBOL);
+        String companyName = data.getString(COL_STOCKS_NAME);
+        String currentPrice = data.getString(COL_STOCKS_CURRENT_PRICE);
+        String variationPercentage = data.getString(COL_STOCKS_PERCENT_CHANGE);
+        String variationAbsolute = data.getString(COL_STOCKS_DOLLAR_CHANGE);
+        String open = data.getString(COL_STOCKS_OPEN);
+        String previousClose = data.getString(COL_STOCKS_PREVIOUS);
+        String daysRange = data.getString(COL_STOCKS_DAY_RANGE);
+        String yearRange = data.getString(COL_STOCKS_YEAR_RANGE);
+        String oneYrTargetPrice = data.getString(COL_STOCKS_TARGET);
+        String fiftyDayMovingAverage = data.getString(COL_STOCKS_FIFTY_AVERAGE);
+        String twoHundredDayMovingAverage = data.getString(COL_STOCKS_TWO_HUNDRED_AVERAGE);
+        String volume = data.getString(COL_STOCKS_VOLUME);
+        String averageDailyVolume = data.getString(COL_STOCKS_AVERAGE_VOLUME);
+        String bookValue = data.getString(COL_STOCKS_BOOK_VALUE);
+        String marketCapitalization = data.getString(COL_STOCKS_MARKET_CAP);
+        String ebitda = data.getString(COL_STOCKS_EBITDA);
+        String peRatio = data.getString(COL_STOCKS_PE_RATIO);
+        String epsEstimateCurrentYear = data.getString(COL_STOCKS_EPS_ESTIMATE_CURRENT);
+        String earningsShare = data.getString(COL_STOCKS_EPS_ACTUAL_CURRENT);
+        String epsEstimateNextYear = data.getString(COL_STOCKS_EPS_ESTIMATE_NEXT);
+        String dividend = "$" + data.getString(COL_STOCKS_DIVIDEND_DOLLAR) + "/" + data.getString(COL_STOCKS_DIVIDEND_YIELD) + "%";
+        String shortRatio = data.getString(COL_STOCKS_SHORT_RATIO);
+
+        currentPriceTextView.setText(currentPrice);
+        variationPercentageTextView.setText(variationPercentage);
+        variationAbsoluteTextView.setText(variationAbsolute);
+        openTextView.setText(open);
+        previousCloseTextView.setText(previousClose);
+        daysRangeTextView.setText(daysRange);
+        yearRangeTextView.setText(yearRange);
+        oneYrTargetPriceTextView.setText(oneYrTargetPrice);
+        fiftyDayMovingAverageTextView.setText(fiftyDayMovingAverage);
+        twoHundredDayMovingAverageTextView.setText(twoHundredDayMovingAverage);
+        volumeTextView.setText(volume);
+        averageDailyVolumeTextView.setText(averageDailyVolume);
+        bookValueTextView.setText(bookValue);
+        marketCapitalizationTextView.setText(marketCapitalization);
+        ebitdaTextView.setText(ebitda);
+        peRatioTextView.setText(peRatio);
+        epsEstimateCurrentYearTextView.setText(epsEstimateCurrentYear);
+        earningsShareTextView.setText(earningsShare);
+        epsEstimateNextYearTextView.setText(epsEstimateNextYear);
+        dividendTextView.setText(dividend);
+        shortRatioTextView.setText(shortRatio);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) { }
+
 }

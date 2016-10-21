@@ -1,8 +1,15 @@
 package com.vinnypalumbo.stockmarketwatchlist;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.vinnypalumbo.stockmarketwatchlist.data.StockColumns;
+import com.vinnypalumbo.stockmarketwatchlist.data.StocksDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,29 +22,29 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Vector;
+
+import static com.vinnypalumbo.stockmarketwatchlist.data.StocksProvider.Stocks.CONTENT_URI;
 
 /**
  * Created by Vincent on 2016-10-10.
  */
 
-public class FetchStocksTask extends AsyncTask<Void, Void, Stock[]> {
+public class FetchStocksTask extends AsyncTask<Void, Void, Void> {
 
     private final String LOG_TAG = FetchStocksTask.class.getSimpleName();
 
-    private WatchlistAdapter mWatchlistAdapter;
     private final Context mContext;
 
-    public FetchStocksTask(Context context, WatchlistAdapter watchlistAdapter) {
+    public FetchStocksTask(Context context) {
         mContext = context;
-        mWatchlistAdapter = watchlistAdapter;
     }
-
 
     /**
      * Take the String representing the complete data in JSON Format and
      * pull out the data we need to construct the Strings needed for the wireframes.
      */
-    private Stock[] getWatchlistDataFromJson(String watchlistJsonStr)
+    private void getWatchlistDataFromJson(String watchlistJsonStr)
             throws JSONException {
         // These are the names of the JSON objects that need to be extracted.
         final String QUERY = "query";
@@ -46,7 +53,7 @@ public class FetchStocksTask extends AsyncTask<Void, Void, Stock[]> {
 
         final String SYMBOL = "symbol";
         final String NAME = "Name";
-        final String PRICE = "Ask";
+        final String CURRENT_PRICE = "Ask";
         final String PERCENT_CHANGE = "ChangeinPercent";
         final String DOLLAR_CHANGE = "Change";
 
@@ -71,92 +78,133 @@ public class FetchStocksTask extends AsyncTask<Void, Void, Stock[]> {
         final String DIVIDEND_YIELD = "DividendYield";
         final String SHORT_RATIO = "ShortRatio";
 
-        JSONObject watchlistJson = new JSONObject(watchlistJsonStr);
-        JSONObject queryObject = watchlistJson.getJSONObject(QUERY);
-        JSONObject resultsObject = queryObject.getJSONObject(RESULTS);
-        JSONArray quoteArray = resultsObject.getJSONArray(QUOTE);
+        try {
+            JSONObject watchlistJson = new JSONObject(watchlistJsonStr);
+            JSONObject queryObject = watchlistJson.getJSONObject(QUERY);
+            JSONObject resultsObject = queryObject.getJSONObject(RESULTS);
+            JSONArray quoteArray = resultsObject.getJSONArray(QUOTE);
 
-        Stock[] resultWatchlist = new Stock[quoteArray.length()];
-        for(int i = 0; i < quoteArray.length(); i++) {
-            String stockSymbol;
-            String companyName;
-            String currentPrice;
-            String variationPercentage;
-            String variationAbsolute;
+            // Insert the new stock information into the database
+            Vector<ContentValues> cVVector = new Vector<ContentValues>(quoteArray.length());
 
-            String open;
-            String previousClose;
-            String daysRange;
-            String yearRange;
-            String oneYrTargetPrice;
-            String fiftyDayMovingAverage;
-            String twoHundredDayMovingAverage;
-            String volume;
-            String averageDailyVolume;
+            for(int i = 0; i < quoteArray.length(); i++) {
+                String stockSymbol;
+                String companyName;
+                String currentPrice;
+                String variationPercentage;
+                String variationAbsolute;
 
-            String bookValue;
-            String marketCapitalization;
-            String ebitda;
-            String peRatio;
-            String epsEstimateCurrentYear;
-            String earningsShare;
-            String epsEstimateNextYear;
-            String dividendShare;
-            String dividendYield;
-            String shortRatio;
+                String open;
+                String previousClose;
+                String daysRange;
+                String yearRange;
+                String oneYrTargetPrice;
+                String fiftyDayMovingAverage;
+                String twoHundredDayMovingAverage;
+                String volume;
+                String averageDailyVolume;
 
-            // To be formatted
-            String dividend;
+                String bookValue;
+                String marketCapitalization;
+                String ebitda;
+                String peRatio;
+                String epsEstimateCurrentYear;
+                String earningsShare;
+                String epsEstimateNextYear;
+                String dividendShare;
+                String dividendYield;
+                String shortRatio;
 
-
-            // Get the JSON object representing the stock object
-            JSONObject stockObject = quoteArray.getJSONObject(i);
-
-            // Get the properties of each stock objects
-            stockSymbol = stockObject.getString(SYMBOL);
-            companyName = stockObject.getString(NAME);
-            currentPrice = stockObject.getString(PRICE);
-            variationPercentage = stockObject.getString(PERCENT_CHANGE);
-            variationAbsolute = stockObject.getString(DOLLAR_CHANGE);
-
-            open = stockObject.getString(OPEN);
-            previousClose = stockObject.getString(PREVIOUS);
-            daysRange = stockObject.getString(DAY_RANGE);
-            yearRange = stockObject.getString(YEAR_RANGE);
-            oneYrTargetPrice = stockObject.getString(TARGET);
-            fiftyDayMovingAverage = stockObject.getString(FIFTY_AVERAGE);
-            twoHundredDayMovingAverage = stockObject.getString(TWO_HUNDRED_AVERAGE);
-            volume = stockObject.getString(VOLUME);
-            averageDailyVolume = stockObject.getString(AVERAGE_VOLUME);
-
-            bookValue = stockObject.getString(BOOK_VALUE);
-            marketCapitalization = stockObject.getString(MARKET_CAP);
-            ebitda = stockObject.getString(EBITDA);
-            peRatio = stockObject.getString(PE_RATIO);
-            epsEstimateCurrentYear = stockObject.getString(EPS_ESTIMATE_CURRENT);
-            earningsShare = stockObject.getString(EPS_ACTUAL_CURRENT);
-            epsEstimateNextYear = stockObject.getString(EPS_ESTIMATE_NEXT);
-            dividendShare = stockObject.getString(DIVIDEND_DOLLAR);
-            dividendYield = stockObject.getString(DIVIDEND_YIELD);
-            shortRatio = stockObject.getString(SHORT_RATIO);
-
-            // Format dividend
-            dividend = "$" + dividendShare + "/" + dividendYield + "%";
+                // To be formatted
+                String dividend;
 
 
-            resultWatchlist[i] = new Stock(stockSymbol, companyName, currentPrice, variationPercentage, variationAbsolute
-                    , open, previousClose, daysRange, yearRange, oneYrTargetPrice, fiftyDayMovingAverage, twoHundredDayMovingAverage, volume, averageDailyVolume
-                    , bookValue, marketCapitalization, ebitda, peRatio, epsEstimateCurrentYear, earningsShare, epsEstimateNextYear, dividend, shortRatio);
+                // Get the JSON object representing the stock object
+                JSONObject stockObject = quoteArray.getJSONObject(i);
+
+                // Get the properties of each stock objects
+                stockSymbol = stockObject.getString(SYMBOL);
+                companyName = stockObject.getString(NAME);
+                currentPrice = stockObject.getString(CURRENT_PRICE);
+                variationPercentage = stockObject.getString(PERCENT_CHANGE);
+                variationAbsolute = stockObject.getString(DOLLAR_CHANGE);
+
+                open = stockObject.getString(OPEN);
+                previousClose = stockObject.getString(PREVIOUS);
+                daysRange = stockObject.getString(DAY_RANGE);
+                yearRange = stockObject.getString(YEAR_RANGE);
+                oneYrTargetPrice = stockObject.getString(TARGET);
+                fiftyDayMovingAverage = stockObject.getString(FIFTY_AVERAGE);
+                twoHundredDayMovingAverage = stockObject.getString(TWO_HUNDRED_AVERAGE);
+                volume = stockObject.getString(VOLUME);
+                averageDailyVolume = stockObject.getString(AVERAGE_VOLUME);
+
+                bookValue = stockObject.getString(BOOK_VALUE);
+                marketCapitalization = stockObject.getString(MARKET_CAP);
+                ebitda = stockObject.getString(EBITDA);
+                peRatio = stockObject.getString(PE_RATIO);
+                epsEstimateCurrentYear = stockObject.getString(EPS_ESTIMATE_CURRENT);
+                earningsShare = stockObject.getString(EPS_ACTUAL_CURRENT);
+                epsEstimateNextYear = stockObject.getString(EPS_ESTIMATE_NEXT);
+                dividendShare = stockObject.getString(DIVIDEND_DOLLAR);
+                dividendYield = stockObject.getString(DIVIDEND_YIELD);
+                shortRatio = stockObject.getString(SHORT_RATIO);
+
+                ContentValues stockValues = new ContentValues();
+
+                stockValues.put(StockColumns.SYMBOL, stockSymbol);
+                stockValues.put(StockColumns.NAME, companyName);
+                stockValues.put(StockColumns.CURRENT_PRICE, currentPrice);
+                stockValues.put(StockColumns.PERCENT_CHANGE, variationPercentage);
+                stockValues.put(StockColumns.DOLLAR_CHANGE, variationAbsolute);
+
+                stockValues.put(StockColumns.OPEN, open);
+                stockValues.put(StockColumns.PREVIOUS, previousClose);
+                stockValues.put(StockColumns.DAY_RANGE, daysRange);
+                stockValues.put(StockColumns.YEAR_RANGE, yearRange);
+                stockValues.put(StockColumns.TARGET, oneYrTargetPrice);
+                stockValues.put(StockColumns.FIFTY_AVERAGE, fiftyDayMovingAverage);
+                stockValues.put(StockColumns.TWO_HUNDRED_AVERAGE, twoHundredDayMovingAverage);
+                stockValues.put(StockColumns.VOLUME, volume);
+                stockValues.put(StockColumns.AVERAGE_VOLUME, averageDailyVolume);
+
+                stockValues.put(StockColumns.BOOK_VALUE, bookValue);
+                stockValues.put(StockColumns.MARKET_CAP, marketCapitalization);
+                stockValues.put(StockColumns.EBITDA, ebitda);
+                stockValues.put(StockColumns.PE_RATIO, peRatio);
+                stockValues.put(StockColumns.EPS_ESTIMATE_CURRENT, epsEstimateCurrentYear);
+                stockValues.put(StockColumns.EPS_ACTUAL_CURRENT, earningsShare);
+                stockValues.put(StockColumns.EPS_ESTIMATE_NEXT, epsEstimateNextYear);
+                stockValues.put(StockColumns.DIVIDEND_DOLLAR, dividendShare);
+                stockValues.put(StockColumns.DIVIDEND_YIELD, dividendYield);
+                stockValues.put(StockColumns.SHORT_RATIO, shortRatio);
+
+
+                cVVector.add(stockValues);
+            }
+
+            int inserted = 0;
+
+            // add to database
+            if ( cVVector.size() > 0 ) {
+                // delete old data so we don't build up an endless history
+                mContext.getContentResolver().delete(CONTENT_URI, null, null);
+                // call bulkInsert to add the stock entries to the database 
+                ContentValues[] cvArray = new ContentValues[cVVector.size()];
+                cVVector.toArray(cvArray);
+                inserted = mContext.getContentResolver().bulkInsert(CONTENT_URI, cvArray);
+            }
+
+            Log.d(LOG_TAG, "FetchStocksTask Complete. " + inserted + " Inserted");
+
+        }catch (JSONException e) {
+            Log.e(LOG_TAG, e.getMessage(), e);
+            e.printStackTrace();
         }
-
-        for (Stock stock : resultWatchlist) {
-            Log.v(LOG_TAG, "Stock entry: " + stock);
-        }
-        return resultWatchlist;
     }
 
     @Override
-    protected Stock[] doInBackground(Void... params) {
+    protected Void doInBackground(Void... params) {
         // These two need to be declared outside the try/catch
         // so that they can be closed in the finally block.
         HttpURLConnection urlConnection = null;
@@ -199,11 +247,14 @@ public class FetchStocksTask extends AsyncTask<Void, Void, Stock[]> {
             }
             watchlistJsonStr = buffer.toString();
             Log.v(LOG_TAG, "JSON string: " + watchlistJsonStr);
+            getWatchlistDataFromJson(watchlistJsonStr);
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error ", e);
             // If the code didn't successfully get the data, there's no point in attemping
             // to parse it.
-            return null;
+        } catch (JSONException e) {
+            Log.e(LOG_TAG, e.getMessage(), e);
+            e.printStackTrace();
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -216,27 +267,6 @@ public class FetchStocksTask extends AsyncTask<Void, Void, Stock[]> {
                 }
             }
         }
-
-        try {
-            return getWatchlistDataFromJson(watchlistJsonStr);
-        } catch (JSONException e) {
-            Log.e(LOG_TAG, e.getMessage(), e);
-            e.printStackTrace();
-        }
-
-        // This will only happen if there was an error getting or parsing the data.
         return null;
     }
-
-    @Override
-    protected void onPostExecute(Stock[] result) {
-        if (result != null) {
-            mWatchlistAdapter.clear();
-            for(Stock stock : result) {
-                mWatchlistAdapter.add(stock);
-            }
-            // New data is back from the server.
-        }
-    }
-
 }
