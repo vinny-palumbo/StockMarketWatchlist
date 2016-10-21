@@ -30,65 +30,21 @@ import static com.vinnypalumbo.stockmarketwatchlist.data.StocksProvider.Stocks.C
  * Created by Vincent on 2016-10-10.
  */
 
-public class FetchStocksTask extends AsyncTask<Void, Void, Stock[]> {
+public class FetchStocksTask extends AsyncTask<Void, Void, Void> {
 
     private final String LOG_TAG = FetchStocksTask.class.getSimpleName();
 
-    private WatchlistAdapter mWatchlistAdapter;
     private final Context mContext;
 
-    public FetchStocksTask(Context context, WatchlistAdapter watchlistAdapter) {
+    public FetchStocksTask(Context context) {
         mContext = context;
-        mWatchlistAdapter = watchlistAdapter;
-    }
-
-    /*
-        Students: This code will allow the FetchStocksTask to continue to return the strings that
-        the UX expects so that we can continue to test the application even once we begin using
-        the database.
-    */
-    Stock[] convertContentValuesToUXFormat(Vector<ContentValues> cvv) {
-        // return Stocks to keep UI functional for now
-        Stock[] resultStrs = new Stock[cvv.size()];
-        for ( int i = 0; i < cvv.size(); i++ ) {
-            ContentValues stockValues = cvv.elementAt(i);
-            String dividend = "$" + stockValues.getAsString(StockColumns.DIVIDEND_DOLLAR)+ "/" + stockValues.getAsString(StockColumns.DIVIDEND_YIELD) + "%";
-            resultStrs[i] = new Stock(
-                    stockValues.getAsString(StockColumns.SYMBOL),
-                    stockValues.getAsString(StockColumns.NAME),
-                    stockValues.getAsString(StockColumns.CURRENT_PRICE),
-                    stockValues.getAsString(StockColumns.PERCENT_CHANGE),
-                    stockValues.getAsString(StockColumns.DOLLAR_CHANGE),
-
-                    stockValues.getAsString(StockColumns.OPEN),
-                    stockValues.getAsString(StockColumns.PREVIOUS),
-                    stockValues.getAsString(StockColumns.DAY_RANGE),
-                    stockValues.getAsString(StockColumns.YEAR_RANGE),
-                    stockValues.getAsString(StockColumns.TARGET),
-                    stockValues.getAsString(StockColumns.FIFTY_AVERAGE),
-                    stockValues.getAsString(StockColumns.TWO_HUNDRED_AVERAGE),
-                    stockValues.getAsString(StockColumns.VOLUME),
-                    stockValues.getAsString(StockColumns.AVERAGE_VOLUME),
-
-                    stockValues.getAsString(StockColumns.BOOK_VALUE),
-                    stockValues.getAsString(StockColumns.MARKET_CAP),
-                    stockValues.getAsString(StockColumns.EBITDA),
-                    stockValues.getAsString(StockColumns.PE_RATIO),
-                    stockValues.getAsString(StockColumns.EPS_ESTIMATE_CURRENT),
-                    stockValues.getAsString(StockColumns.EPS_ACTUAL_CURRENT),
-                    stockValues.getAsString(StockColumns.EPS_ESTIMATE_NEXT),
-                    dividend,
-                    stockValues.getAsString(StockColumns.SHORT_RATIO)
-            );
-        }
-        return resultStrs;
     }
 
     /**
      * Take the String representing the complete data in JSON Format and
      * pull out the data we need to construct the Strings needed for the wireframes.
      */
-    private Stock[] getWatchlistDataFromJson(String watchlistJsonStr)
+    private void getWatchlistDataFromJson(String watchlistJsonStr)
             throws JSONException {
         // These are the names of the JSON objects that need to be extracted.
         final String QUERY = "query";
@@ -227,6 +183,8 @@ public class FetchStocksTask extends AsyncTask<Void, Void, Stock[]> {
                 cVVector.add(stockValues);
             }
 
+            int inserted = 0;
+
             // add to database
             if ( cVVector.size() > 0 ) {
                 // delete old data so we don't build up an endless history
@@ -234,35 +192,19 @@ public class FetchStocksTask extends AsyncTask<Void, Void, Stock[]> {
                 // call bulkInsert to add the stock entries to the database 
                 ContentValues[] cvArray = new ContentValues[cVVector.size()];
                 cVVector.toArray(cvArray);
-                mContext.getContentResolver().bulkInsert(CONTENT_URI, cvArray);
+                inserted = mContext.getContentResolver().bulkInsert(CONTENT_URI, cvArray);
             }
 
-            Cursor cur = mContext.getContentResolver().query(CONTENT_URI,
-                    null, null, null, null);
-
-            cVVector = new Vector<ContentValues>(cur.getCount());
-            if ( cur.moveToFirst() ) {
-                do {
-                    ContentValues cv = new ContentValues();
-                    DatabaseUtils.cursorRowToContentValues(cur, cv);
-                    cVVector.add(cv);
-                } while (cur.moveToNext());
-            }
-
-            Log.d(LOG_TAG, "FetchStocksTask Complete. " + cVVector.size() + " Inserted");
-
-            Stock[] resultStrs = convertContentValuesToUXFormat(cVVector);
-            return resultStrs;
+            Log.d(LOG_TAG, "FetchStocksTask Complete. " + inserted + " Inserted");
 
         }catch (JSONException e) {
             Log.e(LOG_TAG, e.getMessage(), e);
             e.printStackTrace();
         }
-        return null;
     }
 
     @Override
-    protected Stock[] doInBackground(Void... params) {
+    protected Void doInBackground(Void... params) {
         // These two need to be declared outside the try/catch
         // so that they can be closed in the finally block.
         HttpURLConnection urlConnection = null;
@@ -305,11 +247,14 @@ public class FetchStocksTask extends AsyncTask<Void, Void, Stock[]> {
             }
             watchlistJsonStr = buffer.toString();
             Log.v(LOG_TAG, "JSON string: " + watchlistJsonStr);
+            getWatchlistDataFromJson(watchlistJsonStr);
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error ", e);
             // If the code didn't successfully get the data, there's no point in attemping
             // to parse it.
-            return null;
+        } catch (JSONException e) {
+            Log.e(LOG_TAG, e.getMessage(), e);
+            e.printStackTrace();
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -322,27 +267,6 @@ public class FetchStocksTask extends AsyncTask<Void, Void, Stock[]> {
                 }
             }
         }
-
-        try {
-            return getWatchlistDataFromJson(watchlistJsonStr);
-        } catch (JSONException e) {
-            Log.e(LOG_TAG, e.getMessage(), e);
-            e.printStackTrace();
-        }
-
-        // This will only happen if there was an error getting or parsing the data.
         return null;
     }
-
-    @Override
-    protected void onPostExecute(Stock[] result) {
-        if (result != null) {
-            mWatchlistAdapter.clear();
-            for(Stock stock : result) {
-                mWatchlistAdapter.add(stock);
-            }
-            // New data is back from the server.
-        }
-    }
-
 }
