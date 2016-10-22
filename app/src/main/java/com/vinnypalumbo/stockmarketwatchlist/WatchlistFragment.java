@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.vinnypalumbo.stockmarketwatchlist.data.StocksProvider;
+import com.vinnypalumbo.stockmarketwatchlist.sync.StockMarketWatchlistSyncAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -84,8 +85,7 @@ public class WatchlistFragment extends Fragment implements LoaderManager.LoaderC
 
     public void onStart() {
         super.onStart();
-        FetchStocksTask fetchTask = new FetchStocksTask(getActivity());
-        fetchTask.execute();
+        StockMarketWatchlistSyncAdapter.syncImmediately(getActivity());
     }
 
     @Override

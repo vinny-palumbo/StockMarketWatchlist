@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Stock Market Watchlist</string>
     <string name="title_activity_detail">Details</string>
+
+    <!-- SyncAdapter related -->
+    <string name="sync_account_type">stockmarketwatchlist.vinnypalumbo.com</string>
+    <string name="content_authority">com.vinnypalumbo.stockmarketwatchlist</string>
 </resources>
