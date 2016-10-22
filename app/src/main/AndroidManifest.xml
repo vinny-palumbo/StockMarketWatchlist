@@ -36,7 +36,7 @@
 
         <provider
             android:name=".data.generated.StocksProvider"
-            android:authorities="com.vinnypalumbo.stockmarketwatchlist.data.StocksProvider"
+            android:authorities="com.vinnypalumbo.stockmarketwatchlist"
             android:exported="false"
             android:syncable="true" />
 

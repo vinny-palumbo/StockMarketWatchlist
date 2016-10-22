@@ -13,7 +13,7 @@ import net.simonvt.schematic.annotation.TableEndpoint;
 
 @ContentProvider(authority = StocksProvider.AUTHORITY, database = StocksDatabase.class)
 public class StocksProvider {
-    public static final String AUTHORITY = "com.vinnypalumbo.stockmarketwatchlist.data.StocksProvider";
+    public static final String AUTHORITY = "com.vinnypalumbo.stockmarketwatchlist";
 
     static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
 
