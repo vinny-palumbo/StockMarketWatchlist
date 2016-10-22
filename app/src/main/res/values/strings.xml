@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Stock Market Watchlist</string>
+    <string name="app_name">Tech Stocks</string>
     <string name="title_activity_detail">Details</string>
 
     <!-- SyncAdapter related -->

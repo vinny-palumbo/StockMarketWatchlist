@@ -104,6 +104,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     static final int COL_STOCKS_DIVIDEND_YIELD = 23;
     static final int COL_STOCKS_SHORT_RATIO = 24;
 
+    private TextView symbolTextView;
     private TextView currentPriceTextView;
     private TextView variationPercentageTextView;
     private TextView variationAbsoluteTextView;
@@ -134,6 +135,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 
+        symbolTextView = (TextView) rootView.findViewById(R.id.symbol);
         currentPriceTextView = (TextView) rootView.findViewById(R.id.current_price);
         variationPercentageTextView = (TextView) rootView.findViewById(R.id.variation_percentage);
         variationAbsoluteTextView = (TextView) rootView.findViewById(R.id.variation_absolute);
@@ -214,6 +216,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         String dividend = "$" + data.getString(COL_STOCKS_DIVIDEND_DOLLAR) + "/" + data.getString(COL_STOCKS_DIVIDEND_YIELD) + "%";
         String shortRatio = data.getString(COL_STOCKS_SHORT_RATIO);
 
+        symbolTextView.setText(stockSymbol);
         currentPriceTextView.setText(currentPrice);
         variationPercentageTextView.setText(variationPercentage);
         variationAbsoluteTextView.setText(variationAbsolute);

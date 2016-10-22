@@ -31,21 +31,13 @@
             android:textAppearance="?android:textAppearanceSmall"/>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/list_item_current_price"
-        android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:gravity="right"
-        android:layout_gravity="center_vertical"/>
-
     <LinearLayout
         android:layout_height="wrap_content"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:gravity="right"
+        android:gravity="left"
         android:layout_gravity="center_vertical"
+        android:paddingLeft="@dimen/list_item_margin"
         android:orientation="vertical">
 
         <TextView
@@ -62,5 +54,14 @@
             android:layout_weight="1"
             android:textAppearance="?android:textAppearanceSmall" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/list_item_current_price"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:gravity="right"
+        android:layout_gravity="center_vertical" />
 
 </LinearLayout>
