@@ -9,7 +9,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:showIn="@layout/activity_detail"
     tools:context=".DetailFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/transparentBlack">
 
     <LinearLayout
         android:layout_height="0dp"
@@ -26,6 +27,7 @@
             android:layout_gravity="center"
             android:gravity="left"
             android:textSize="@dimen/large_text_size"
+            android:textColor="@color/grey"
             android:text="--"/>
 
         <TextView
@@ -36,6 +38,7 @@
             android:gravity="left"
             android:paddingLeft="@dimen/detail_fragment_variation_margin"
             android:textSize="@dimen/very_large_text_size"
+            android:textColor="@color/white"
             android:text="--"/>
 
         <LinearLayout
@@ -51,6 +54,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:textSize="@dimen/medium_text_size"
+                android:textColor="@color/grey"
                 android:text="--"/>
 
             <TextView
@@ -59,6 +63,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:textSize="@dimen/medium_text_size"
+                android:textColor="@color/grey"
                 android:text="--"/>
 
         </LinearLayout>
@@ -93,6 +98,7 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/grey"
                     android:text="Open"/>
 
                 <TextView
@@ -102,6 +108,7 @@
                     android:layout_weight="2"
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/white"
                     android:text="--"/>
             </LinearLayout>
 
@@ -120,6 +127,7 @@
                     android:layout_weight="9"
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/grey"
                     android:text="Prev. Close"/>
 
                 <TextView
@@ -129,6 +137,7 @@
                     android:layout_weight="11"
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/white"
                     android:text="--"/>
             </LinearLayout>
 
@@ -147,6 +156,7 @@
                     android:layout_weight="2"
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/grey"
                     android:text="Dy.Range" />
 
                 <TextView
@@ -156,6 +166,7 @@
                     android:layout_weight="3"
                     android:gravity="right"
                     android:textSize="@dimen/very_small_text_size"
+                    android:textColor="@color/white"
                     android:text="--"/>
             </LinearLayout>
 
@@ -174,6 +185,7 @@
                     android:layout_weight="2"
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/grey"
                     android:text="Yr.Range"/>
 
                 <TextView
@@ -183,6 +195,7 @@
                     android:layout_weight="3"
                     android:gravity="right"
                     android:textSize="@dimen/very_small_text_size"
+                    android:textColor="@color/white"
                     android:text="--"/>
             </LinearLayout>
 
@@ -201,6 +214,7 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/grey"
                     android:text="1y Target"  />
 
                 <TextView
@@ -210,6 +224,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/white"
                     android:text="--"/>
             </LinearLayout>
 
@@ -228,6 +243,7 @@
                     android:layout_weight="11"
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/grey"
                     android:text="50d Mov.Avg" />
 
                 <TextView
@@ -237,6 +253,7 @@
                     android:layout_weight="9"
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/white"
                     android:text="--"/>
             </LinearLayout>
 
@@ -255,6 +272,7 @@
                     android:layout_weight="12"
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/grey"
                     android:text="200d Mov.Avg" />
 
                 <TextView
@@ -264,6 +282,7 @@
                     android:layout_weight="9"
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/white"
                     android:text="--"/>
             </LinearLayout>
 
@@ -282,6 +301,7 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/grey"
                     android:text="Day Volume" />
 
                 <TextView
@@ -291,6 +311,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/white"
                     android:text="--"/>
             </LinearLayout>
 
@@ -309,6 +330,7 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/grey"
                     android:text="Avg.Volume" />
 
                 <TextView
@@ -318,6 +340,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/white"
                     android:text="--"/>
             </LinearLayout>
 
@@ -348,6 +371,7 @@
                     android:layout_weight="9"
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/grey"
                     android:text="Book Value"/>
 
                 <TextView
@@ -357,6 +381,7 @@
                     android:layout_weight="11"
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/white"
                     android:text="--"/>
             </LinearLayout>
 
@@ -375,6 +400,7 @@
                     android:layout_weight="9"
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/grey"
                     android:text="Market Cap."/>
 
                 <TextView
@@ -384,6 +410,7 @@
                     android:layout_weight="11"
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/white"
                     android:text="--"/>
             </LinearLayout>
 
@@ -402,6 +429,7 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/grey"
                     android:text="EBITDA" />
 
                 <TextView
@@ -411,6 +439,7 @@
                     android:layout_weight="2"
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/white"
                     android:text="--"/>
             </LinearLayout>
 
@@ -429,6 +458,7 @@
                     android:layout_weight="2"
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/grey"
                     android:text="P/E Ratio"/>
 
                 <TextView
@@ -438,6 +468,7 @@
                     android:layout_weight="3"
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/white"
                     android:text="--"/>
             </LinearLayout>
 
@@ -456,6 +487,7 @@
                     android:layout_weight="2"
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/grey"
                     android:text="Pred.EPS Curr." />
 
                 <TextView
@@ -465,6 +497,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/white"
                     android:text="--"/>
             </LinearLayout>
 
@@ -483,6 +516,7 @@
                     android:layout_weight="2"
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/grey"
                     android:text="Actu.EPS Curr."  />
 
                 <TextView
@@ -492,6 +526,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/white"
                     android:text="--"/>
             </LinearLayout>
 
@@ -510,6 +545,7 @@
                     android:layout_weight="11"
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/grey"
                     android:text="Pred.EPS Nxt." />
 
                 <TextView
@@ -519,6 +555,7 @@
                     android:layout_weight="9"
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/white"
                     android:text="--"/>
             </LinearLayout>
 
@@ -537,6 +574,7 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/grey"
                     android:text="Dividend" />
 
                 <TextView
@@ -546,6 +584,7 @@
                     android:layout_weight="2"
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/white"
                     android:text="--/--"/>
             </LinearLayout>
 
@@ -564,6 +603,7 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/grey"
                     android:text="Short Ratio" />
 
                 <TextView
@@ -573,6 +613,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
+                    android:textColor="@color/white"
                     android:text="--"/>
             </LinearLayout>
 
