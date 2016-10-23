@@ -7,6 +7,7 @@ import android.content.ContentProviderClient;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SyncRequest;
 import android.content.SyncResult;
 import android.os.AsyncTask;
@@ -39,6 +40,8 @@ import static com.vinnypalumbo.stockmarketwatchlist.data.StocksProvider.Stocks.C
 public class StockMarketWatchlistSyncAdapter extends AbstractThreadedSyncAdapter {
 
     private final String LOG_TAG = StockMarketWatchlistSyncAdapter.class.getSimpleName();
+    public static final String ACTION_DATA_UPDATED =
+            "com.vinnypalumbo.stockmarketwatchlist.ACTION_DATA_UPDATED";
 
     // Interval at which to sync with the data, in seconds.
     // 60 seconds (1 minute) * 180 = 3 hours
@@ -202,6 +205,8 @@ public class StockMarketWatchlistSyncAdapter extends AbstractThreadedSyncAdapter
                 ContentValues[] cvArray = new ContentValues[cVVector.size()];
                 cVVector.toArray(cvArray);
                 inserted = getContext().getContentResolver().bulkInsert(CONTENT_URI, cvArray);
+
+                updateWidgets();
             }
 
             Log.d(LOG_TAG, "Fetch Data Task Completed. " + inserted + " Inserted");
@@ -279,6 +284,14 @@ public class StockMarketWatchlistSyncAdapter extends AbstractThreadedSyncAdapter
             }
         }
         return;
+    }
+
+    private void updateWidgets() {
+        Context context = getContext();
+        // Setting the package ensures that only components in our app will receive the broadcast
+        Intent dataUpdatedIntent = new Intent(ACTION_DATA_UPDATED)
+                .setPackage(context.getPackageName());
+        context.sendBroadcast(dataUpdatedIntent);
     }
 
     /**
