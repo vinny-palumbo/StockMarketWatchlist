@@ -8,14 +8,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:showIn="@layout/activity_main"
     tools:context=".WatchlistFragment"
-    android:background="@color/transparentBlack">
+    android:background="@color/backgroundBlack">
 
     <ListView
         android:id="@+id/listview_watchlist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@color/drak_grey"
-        android:dividerHeight="1px"/>
+        android:dividerHeight="1dp"/>
 
 </FrameLayout>
 

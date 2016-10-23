@@ -10,7 +10,7 @@
     tools:showIn="@layout/activity_detail"
     tools:context=".DetailFragment"
     android:orientation="vertical"
-    android:background="@color/transparentBlack">
+    android:background="@color/backgroundBlack">
 
     <LinearLayout
         android:layout_height="0dp"
