@@ -5,4 +5,7 @@
     <!-- SyncAdapter related -->
     <string name="sync_account_type">stockmarketwatchlist.vinnypalumbo.com</string>
     <string name="content_authority">com.vinnypalumbo.stockmarketwatchlist</string>
+
+    <!-- Strings related to Widgets -->
+    <string name="collection_widget_title">Tech Stocks List</string>
 </resources>

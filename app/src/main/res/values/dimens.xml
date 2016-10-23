@@ -14,4 +14,11 @@
     <dimen name="medium_text_size">18dp</dimen>
     <dimen name="small_text_size">13dp</dimen>
     <dimen name="very_small_text_size">11dp</dimen>
+
+    <!--Collection widget-->
+    <dimen name="widget_collection_default_width">220dp</dimen>
+    <dimen name="widget_collection_default_height">180dp</dimen>
+    <dimen name="widget_collection_min_resize_width">@dimen/widget_collection_default_width</dimen>
+    <dimen name="widget_collection_min_resize_height">@dimen/widget_collection_default_height</dimen>
+    <dimen name="widget_variation_margin">8dp</dimen>
 </resources>
