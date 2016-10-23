@@ -8,11 +8,14 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.SyncRequest;
 import android.content.SyncResult;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.IntDef;
 import android.util.Log;
 
 import com.vinnypalumbo.stockmarketwatchlist.R;
@@ -26,6 +29,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -42,6 +47,16 @@ public class StockMarketWatchlistSyncAdapter extends AbstractThreadedSyncAdapter
     private final String LOG_TAG = StockMarketWatchlistSyncAdapter.class.getSimpleName();
     public static final String ACTION_DATA_UPDATED =
             "com.vinnypalumbo.stockmarketwatchlist.ACTION_DATA_UPDATED";
+
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({STOCKS_STATUS_OK, STOCKS_STATUS_SERVER_DOWN, STOCKS_STATUS_SERVER_INVALID, STOCKS_STATUS_UNKNOWN})
+    public @interface StocksStatus {}
+    public static final int STOCKS_STATUS_OK = 0;
+    public static final int STOCKS_STATUS_SERVER_DOWN = 1;
+    public static final int
+            STOCKS_STATUS_SERVER_INVALID = 2;
+    public static final int
+            STOCKS_STATUS_UNKNOWN = 3;
 
     // Interval at which to sync with the data, in seconds.
     // 60 seconds (1 minute) * 180 = 3 hours
@@ -210,10 +225,12 @@ public class StockMarketWatchlistSyncAdapter extends AbstractThreadedSyncAdapter
             }
 
             Log.d(LOG_TAG, "Fetch Data Task Completed. " + inserted + " Inserted");
+            setStocksStatus(getContext(), STOCKS_STATUS_OK);
 
         }catch (JSONException e) {
             Log.e(LOG_TAG, e.getMessage(), e);
             e.printStackTrace();
+            setStocksStatus(getContext(), STOCKS_STATUS_SERVER_INVALID);
         }
     }
 
@@ -259,6 +276,7 @@ public class StockMarketWatchlistSyncAdapter extends AbstractThreadedSyncAdapter
 
             if (buffer.length() == 0) {
                 // Stream was empty.  No point in parsing.
+                setStocksStatus(getContext(), STOCKS_STATUS_SERVER_DOWN);
                 return;
             }
             watchlistJsonStr = buffer.toString();
@@ -268,9 +286,11 @@ public class StockMarketWatchlistSyncAdapter extends AbstractThreadedSyncAdapter
             Log.e(LOG_TAG, "Error ", e);
             // If the code didn't successfully get the data, there's no point in attemping
             // to parse it.
+            setStocksStatus(getContext(), STOCKS_STATUS_SERVER_DOWN);
         } catch (JSONException e) {
             Log.e(LOG_TAG, e.getMessage(), e);
             e.printStackTrace();
+            setStocksStatus(getContext(), STOCKS_STATUS_SERVER_INVALID);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -377,5 +397,18 @@ public class StockMarketWatchlistSyncAdapter extends AbstractThreadedSyncAdapter
 
     public static void initializeSyncAdapter(Context context) {
         getSyncAccount(context);
+    }
+
+    /**
+     * Sets the stocks status into shared preference.  This function should not be called from
+     * the UI thread because it uses commit to write to the shared preferences.
+     * @param c Context to get the PreferenceManager from.
+     * @param stocksStatus The IntDef value to set
+     */
+    static private void setStocksStatus(Context c, @StocksStatus int stocksStatus){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(c);
+        SharedPreferences.Editor spe = sp.edit();
+        spe.putInt(c.getString(R.string.pref_stocks_status_key), stocksStatus);
+        spe.commit();
     }
 }

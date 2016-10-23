@@ -33,6 +33,17 @@
             android:divider="@color/drak_grey"
             android:dividerHeight="1dp"
             tools:listitem="@layout/widget_collection_list_item" />
+        <!-- empty list -->
+        <TextView
+            android:id="@+id/widget_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:fontFamily="sans-serif-condensed"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/grey"
+            android:text="@string/empty_watchlist"
+            />
     </FrameLayout>
 
 </LinearLayout>

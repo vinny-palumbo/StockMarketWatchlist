@@ -1,8 +1,10 @@
 package com.vinnypalumbo.stockmarketwatchlist;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vinnypalumbo.stockmarketwatchlist.data.StocksProvider;
@@ -54,7 +57,7 @@ import static com.vinnypalumbo.stockmarketwatchlist.data.StocksProvider.Stocks.C
  * Created by Vincent on 2016-10-08.
  */
 
-public class WatchlistFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class WatchlistFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private static final int WATCHLIST_LOADER = 0;
 
@@ -89,6 +92,20 @@ public class WatchlistFragment extends Fragment implements LoaderManager.LoaderC
     }
 
     @Override
+    public void onResume() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        sp.registerOnSharedPreferenceChangeListener(this);
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        sp.unregisterOnSharedPreferenceChangeListener(this);
+        super.onPause();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -99,6 +116,8 @@ public class WatchlistFragment extends Fragment implements LoaderManager.LoaderC
 
         // Get a reference to the ListView, and attach this adapter to it.
         ListView listView = (ListView) rootView.findViewById(R.id.listview_watchlist);
+        View emptyView = rootView.findViewById(R.id.listview_watchlist_empty);
+        listView.setEmptyView(emptyView);
         listView.setAdapter(mWatchlistAdapter);
 
         // setup on click event
@@ -139,10 +158,45 @@ public class WatchlistFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         mWatchlistAdapter.swapCursor(cursor);
+        updateEmptyView();
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
         mWatchlistAdapter.swapCursor(null);
+    }
+
+    /*
+       Updates the empty list view with contextually relevant information that the user can
+       use to determine why they aren't seeing any data.
+    */
+    private void updateEmptyView() {
+        if ( mWatchlistAdapter.getCount() == 0 ) {
+            TextView tv = (TextView) getView().findViewById(R.id.listview_watchlist_empty);
+            if ( tv != null) {
+                int message = R.string.empty_watchlist;
+                @StockMarketWatchlistSyncAdapter.StocksStatus int stocksStatus = Utility.getStocksStatus(getActivity());
+                switch (stocksStatus) {
+                    case StockMarketWatchlistSyncAdapter.STOCKS_STATUS_SERVER_DOWN:
+                        message = R.string.empty_watchlist_server_down;
+                        break;
+                    case StockMarketWatchlistSyncAdapter.STOCKS_STATUS_SERVER_INVALID:
+                        message = R.string.empty_watchlist_server_error;
+                        break;
+                    default:
+                        if (!Utility.isNetworkAvailable(getActivity()) ) {
+                            message = R.string.empty_watchlist_no_network;
+                        }
+                }
+                tv.setText(message);
+            }
+        }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if ( key.equals(getString(R.string.pref_stocks_status_key)) ) {
+            updateEmptyView();
+        }
     }
 }

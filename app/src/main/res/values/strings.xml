@@ -8,4 +8,13 @@
 
     <!-- Strings related to Widgets -->
     <string name="collection_widget_title">Tech Stocks List</string>
+
+    <!-- Empty Stocks Database messages -->
+    <string name="empty_watchlist">No Stocks Information Available at this Time</string>
+    <string name="empty_watchlist_no_network">No Internet Connection. Please make sure your device is connected to the Internet.</string>
+    <string name="empty_watchlist_server_down">No Stocks Information Available at this Time. The server is not returning any data.</string>
+    <string name="empty_watchlist_server_error">No Stocks Information Available at this Time. The server is not returning valid data. Please check for an updated version of this app.</string>
+
+    <!-- Key name for storing stocks status in SharedPreferences -->
+    <string name="pref_stocks_status_key" translatable="false">stocks-status</string>
 </resources>
