@@ -7,6 +7,7 @@
     <dimen name="list_item_margin">8dp</dimen>
     <dimen name="detail_fragment_variation_margin">16dp</dimen>
     <dimen name="detail_fragment_details_margin">3dp</dimen>
+    <dimen name="banner_ad_top_margin">16dp</dimen>
 
     <!--Text size-->
     <dimen name="very_large_text_size">40dp</dimen>
