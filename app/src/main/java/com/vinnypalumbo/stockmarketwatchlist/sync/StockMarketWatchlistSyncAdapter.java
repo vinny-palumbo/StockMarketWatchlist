@@ -16,7 +16,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.IntDef;
-import android.util.Log;
 
 import com.vinnypalumbo.stockmarketwatchlist.R;
 import com.vinnypalumbo.stockmarketwatchlist.data.StockColumns;
@@ -223,12 +222,9 @@ public class StockMarketWatchlistSyncAdapter extends AbstractThreadedSyncAdapter
 
                 updateWidgets();
             }
-
-            Log.d(LOG_TAG, "Fetch Data Task Completed. " + inserted + " Inserted");
             setStocksStatus(getContext(), STOCKS_STATUS_OK);
 
         }catch (JSONException e) {
-            Log.e(LOG_TAG, e.getMessage(), e);
             e.printStackTrace();
             setStocksStatus(getContext(), STOCKS_STATUS_SERVER_INVALID);
         }
@@ -236,7 +232,6 @@ public class StockMarketWatchlistSyncAdapter extends AbstractThreadedSyncAdapter
 
     @Override
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
-        Log.d(LOG_TAG, "Starting sync");
 
         // These two need to be declared outside the try/catch
         // so that they can be closed in the finally block.
@@ -280,15 +275,12 @@ public class StockMarketWatchlistSyncAdapter extends AbstractThreadedSyncAdapter
                 return;
             }
             watchlistJsonStr = buffer.toString();
-            Log.v(LOG_TAG, "JSON string: " + watchlistJsonStr);
             getWatchlistDataFromJson(watchlistJsonStr);
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Error ", e);
             // If the code didn't successfully get the data, there's no point in attemping
             // to parse it.
             setStocksStatus(getContext(), STOCKS_STATUS_SERVER_DOWN);
         } catch (JSONException e) {
-            Log.e(LOG_TAG, e.getMessage(), e);
             e.printStackTrace();
             setStocksStatus(getContext(), STOCKS_STATUS_SERVER_INVALID);
         } finally {
@@ -299,7 +291,6 @@ public class StockMarketWatchlistSyncAdapter extends AbstractThreadedSyncAdapter
                 try {
                     reader.close();
                 } catch (final IOException e) {
-                    Log.e(LOG_TAG, "Error closing stream", e);
                 }
             }
         }
