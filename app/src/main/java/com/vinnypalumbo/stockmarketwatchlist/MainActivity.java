@@ -13,5 +13,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         StockMarketWatchlistSyncAdapter.initializeSyncAdapter(this);
+
+        // start Analytics tracking
+        ((StockMarketWatchlist) getApplication()).startTracking();
     }
 }

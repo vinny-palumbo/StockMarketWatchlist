@@ -29,5 +29,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     apt 'net.simonvt.schematic:schematic-compiler:0.6.3'
     compile 'net.simonvt.schematic:schematic:0.6.3'
+//    Needed for AdMob and Google Analytics
     compile 'com.google.android.gms:play-services:9.6.1'
 }
