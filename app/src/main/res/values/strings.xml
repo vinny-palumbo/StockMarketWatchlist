@@ -17,4 +17,7 @@
 
     <!-- Key name for storing stocks status in SharedPreferences -->
     <string name="pref_stocks_status_key" translatable="false">stocks-status</string>
+
+    <!--Ad-->
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 </resources>

@@ -13,6 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.AVERAGE_VOLUME;
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.BOOK_VALUE;
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.CURRENT_PRICE;
@@ -127,6 +130,8 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     private TextView dividendTextView;
     private TextView shortRatioTextView;
 
+    private AdView mAdView;
+
     public DetailFragment() {
     }
 
@@ -134,6 +139,11 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+
+        mAdView = (AdView) rootView.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .build();
+        mAdView.loadAd(adRequest);
 
         symbolTextView = (TextView) rootView.findViewById(R.id.symbol);
         currentPriceTextView = (TextView) rootView.findViewById(R.id.current_price);
