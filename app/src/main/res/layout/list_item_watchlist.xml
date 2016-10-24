@@ -22,7 +22,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:text="@string/default_value"/>
 
         <TextView
             android:id="@+id/list_item_company_name"
@@ -30,7 +31,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:textAppearance="?android:textAppearanceSmall"
-            android:textColor="@color/grey"/>
+            android:textColor="@color/grey"
+            android:text="@string/default_value"/>
     </LinearLayout>
 
     <LinearLayout
@@ -48,7 +50,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:textAppearance="?android:textAppearanceSmall"
-            android:textColor="@color/grey"/>
+            android:textColor="@color/grey"
+            android:text="@string/default_value"/>
 
         <TextView
             android:id="@+id/list_item_variation_absolute"
@@ -56,7 +59,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:textAppearance="?android:textAppearanceSmall"
-            android:textColor="@color/grey"/>
+            android:textColor="@color/grey"
+            android:text="@string/default_value"/>
     </LinearLayout>
 
     <TextView
@@ -67,6 +71,7 @@
         android:textAppearance="?android:textAppearanceMedium"
         android:gravity="right"
         android:layout_gravity="center_vertical"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:text="@string/default_value"/>
 
 </LinearLayout>

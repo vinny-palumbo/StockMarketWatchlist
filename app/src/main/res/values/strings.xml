@@ -3,8 +3,8 @@
     <string name="title_activity_detail">Details</string>
 
     <!-- SyncAdapter related -->
-    <string name="sync_account_type">stockmarketwatchlist.vinnypalumbo.com</string>
-    <string name="content_authority">com.vinnypalumbo.stockmarketwatchlist</string>
+    <string name="sync_account_type" translatable="false">stockmarketwatchlist.vinnypalumbo.com</string>
+    <string name="content_authority" translatable="false">com.vinnypalumbo.stockmarketwatchlist</string>
 
     <!-- Strings related to Widgets -->
     <string name="collection_widget_title">Tech Stocks List</string>
@@ -19,5 +19,28 @@
     <string name="pref_stocks_status_key" translatable="false">stocks-status</string>
 
     <!--Ad-->
-    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+
+    <!--Detail Screen Labels-->
+    <string name="open_label">Open</string>
+    <string name="previousClose_label">Prev. Close</string>
+    <string name="daysRange_label">Dy.Range</string>
+    <string name="yearRange_label">Yr.Range</string>
+    <string name="oneYrTargetPrice_label">1y Target</string>
+    <string name="fiftyDayMovingAverage_label">50d Mov.Avg</string>
+    <string name="twoHundredDayMovingAverage_label">200d Mov.Avg</string>
+    <string name="volume_label">Day Volume</string>
+    <string name="averageDailyVolume_label">Avg.Volume</string>
+    <string name="bookValue_label">Book Value</string>
+    <string name="marketCapitalization_label">Market Cap.</string>
+    <string name="ebitda_label">EBITDA</string>
+    <string name="peRatio_label">P/E Ratio</string>
+    <string name="epsEstimateCurrentYear_label">Pred.EPS Curr.</string>
+    <string name="earningsShare_label">Actu.EPS Curr.</string>
+    <string name="epsEstimateNextYear_label">Pred.EPS Nxt.</string>
+    <string name="dividend_label">Dividend</string>
+    <string name="shortRatio_label">Short Ratio</string>
+
+    <!--Default value-->
+    <string name="default_value" translatable="false">--</string>
 </resources>

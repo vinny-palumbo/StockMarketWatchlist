@@ -34,7 +34,7 @@
             android:gravity="left"
             android:textSize="@dimen/large_text_size"
             android:textColor="@color/grey"
-            android:text="--"/>
+            android:text="@string/default_value"/>
 
         <TextView
             android:id="@+id/current_price"
@@ -45,7 +45,7 @@
             android:paddingLeft="@dimen/detail_fragment_variation_margin"
             android:textSize="@dimen/very_large_text_size"
             android:textColor="@color/white"
-            android:text="--"/>
+            android:text="@string/default_value"/>
 
         <LinearLayout
             android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
                 android:layout_weight="1"
                 android:textSize="@dimen/medium_text_size"
                 android:textColor="@color/grey"
-                android:text="--"/>
+                android:text="@string/default_value"/>
 
             <TextView
                 android:id="@+id/variation_absolute"
@@ -70,7 +70,7 @@
                 android:layout_weight="1"
                 android:textSize="@dimen/medium_text_size"
                 android:textColor="@color/grey"
-                android:text="--"/>
+                android:text="@string/default_value"/>
 
         </LinearLayout>
     </LinearLayout>
@@ -105,7 +105,7 @@
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/grey"
-                    android:text="Open"/>
+                    android:text="@string/open_label"/>
 
                 <TextView
                     android:id="@+id/open_value"
@@ -115,7 +115,7 @@
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/white"
-                    android:text="--"/>
+                    android:text="@string/default_value"/>
             </LinearLayout>
 
             <LinearLayout
@@ -134,7 +134,7 @@
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/grey"
-                    android:text="Prev. Close"/>
+                    android:text="@string/previousClose_label"/>
 
                 <TextView
                     android:id="@+id/previousClose_value"
@@ -144,7 +144,7 @@
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/white"
-                    android:text="--"/>
+                    android:text="@string/default_value"/>
             </LinearLayout>
 
             <LinearLayout
@@ -163,7 +163,7 @@
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/grey"
-                    android:text="Dy.Range" />
+                    android:text="@string/daysRange_label" />
 
                 <TextView
                     android:id="@+id/daysRange_value"
@@ -173,7 +173,7 @@
                     android:gravity="right"
                     android:textSize="@dimen/very_small_text_size"
                     android:textColor="@color/white"
-                    android:text="--"/>
+                    android:text="@string/default_value"/>
             </LinearLayout>
 
             <LinearLayout
@@ -192,7 +192,7 @@
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/grey"
-                    android:text="Yr.Range"/>
+                    android:text="@string/yearRange_label"/>
 
                 <TextView
                     android:id="@+id/yearRange_value"
@@ -202,7 +202,7 @@
                     android:gravity="right"
                     android:textSize="@dimen/very_small_text_size"
                     android:textColor="@color/white"
-                    android:text="--"/>
+                    android:text="@string/default_value"/>
             </LinearLayout>
 
             <LinearLayout
@@ -221,7 +221,7 @@
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/grey"
-                    android:text="1y Target"  />
+                    android:text="@string/oneYrTargetPrice_label"  />
 
                 <TextView
                     android:id="@+id/oneYrTargetPrice_value"
@@ -231,7 +231,7 @@
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/white"
-                    android:text="--"/>
+                    android:text="@string/default_value"/>
             </LinearLayout>
 
             <LinearLayout
@@ -250,7 +250,7 @@
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/grey"
-                    android:text="50d Mov.Avg" />
+                    android:text="@string/fiftyDayMovingAverage_label" />
 
                 <TextView
                     android:id="@+id/fiftyDayMovingAverage_value"
@@ -260,7 +260,7 @@
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/white"
-                    android:text="--"/>
+                    android:text="@string/default_value"/>
             </LinearLayout>
 
             <LinearLayout
@@ -279,7 +279,7 @@
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/grey"
-                    android:text="200d Mov.Avg" />
+                    android:text="@string/twoHundredDayMovingAverage_label" />
 
                 <TextView
                     android:id="@+id/twoHundredDayMovingAverage_value"
@@ -289,7 +289,7 @@
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/white"
-                    android:text="--"/>
+                    android:text="@string/default_value"/>
             </LinearLayout>
 
             <LinearLayout
@@ -308,7 +308,7 @@
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/grey"
-                    android:text="Day Volume" />
+                    android:text="@string/volume_label" />
 
                 <TextView
                     android:id="@+id/volume_value"
@@ -318,7 +318,7 @@
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/white"
-                    android:text="--"/>
+                    android:text="@string/default_value"/>
             </LinearLayout>
 
             <LinearLayout
@@ -337,7 +337,7 @@
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/grey"
-                    android:text="Avg.Volume" />
+                    android:text="@string/averageDailyVolume_label" />
 
                 <TextView
                     android:id="@+id/averageDailyVolume_value"
@@ -347,7 +347,7 @@
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/white"
-                    android:text="--"/>
+                    android:text="@string/default_value"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -378,7 +378,7 @@
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/grey"
-                    android:text="Book Value"/>
+                    android:text="@string/bookValue_label"/>
 
                 <TextView
                     android:id="@+id/bookValue_value"
@@ -388,7 +388,7 @@
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/white"
-                    android:text="--"/>
+                    android:text="@string/default_value"/>
             </LinearLayout>
 
             <LinearLayout
@@ -407,7 +407,7 @@
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/grey"
-                    android:text="Market Cap."/>
+                    android:text="@string/marketCapitalization_label"/>
 
                 <TextView
                     android:id="@+id/marketCapitalization_value"
@@ -417,7 +417,7 @@
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/white"
-                    android:text="--"/>
+                    android:text="@string/default_value"/>
             </LinearLayout>
 
             <LinearLayout
@@ -436,7 +436,7 @@
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/grey"
-                    android:text="EBITDA" />
+                    android:text="@string/ebitda_label" />
 
                 <TextView
                     android:id="@+id/ebitda_value"
@@ -446,7 +446,7 @@
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/white"
-                    android:text="--"/>
+                    android:text="@string/default_value"/>
             </LinearLayout>
 
             <LinearLayout
@@ -465,7 +465,7 @@
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/grey"
-                    android:text="P/E Ratio"/>
+                    android:text="@string/peRatio_label"/>
 
                 <TextView
                     android:id="@+id/peRatio_value"
@@ -475,7 +475,7 @@
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/white"
-                    android:text="--"/>
+                    android:text="@string/default_value"/>
             </LinearLayout>
 
             <LinearLayout
@@ -494,7 +494,7 @@
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/grey"
-                    android:text="Pred.EPS Curr." />
+                    android:text="@string/epsEstimateCurrentYear_label" />
 
                 <TextView
                     android:id="@+id/epsEstimateCurrentYear_value"
@@ -504,7 +504,7 @@
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/white"
-                    android:text="--"/>
+                    android:text="@string/default_value"/>
             </LinearLayout>
 
             <LinearLayout
@@ -523,7 +523,7 @@
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/grey"
-                    android:text="Actu.EPS Curr."  />
+                    android:text="@string/earningsShare_label"  />
 
                 <TextView
                     android:id="@+id/earningsShare_value"
@@ -533,7 +533,7 @@
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/white"
-                    android:text="--"/>
+                    android:text="@string/default_value"/>
             </LinearLayout>
 
             <LinearLayout
@@ -552,7 +552,7 @@
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/grey"
-                    android:text="Pred.EPS Nxt." />
+                    android:text="@string/epsEstimateNextYear_label" />
 
                 <TextView
                     android:id="@+id/epsEstimateNextYear_value"
@@ -562,7 +562,7 @@
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/white"
-                    android:text="--"/>
+                    android:text="@string/default_value"/>
             </LinearLayout>
 
             <LinearLayout
@@ -581,7 +581,7 @@
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/grey"
-                    android:text="Dividend" />
+                    android:text="@string/dividend_label" />
 
                 <TextView
                     android:id="@+id/dividend_value"
@@ -591,7 +591,7 @@
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/white"
-                    android:text="--/--"/>
+                    android:text="@string/default_value"/>
             </LinearLayout>
 
             <LinearLayout
@@ -610,7 +610,7 @@
                     android:gravity="left"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/grey"
-                    android:text="Short Ratio" />
+                    android:text="@string/shortRatio_label" />
 
                 <TextView
                     android:id="@+id/shortRatio_value"
@@ -620,7 +620,7 @@
                     android:gravity="right"
                     android:textSize="@dimen/small_text_size"
                     android:textColor="@color/white"
-                    android:text="--"/>
+                    android:text="@string/default_value"/>
             </LinearLayout>
 
         </LinearLayout>
