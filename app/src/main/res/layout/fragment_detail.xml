@@ -7,7 +7,9 @@
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingStart="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingEnd="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:showIn="@layout/activity_detail"
     tools:context=".DetailFragment"
@@ -43,6 +45,7 @@
             android:layout_gravity="center"
             android:gravity="left"
             android:paddingLeft="@dimen/detail_fragment_variation_margin"
+            android:paddingStart="@dimen/detail_fragment_variation_margin"
             android:textSize="@dimen/very_large_text_size"
             android:textColor="@color/white"
             android:text="@string/default_value"/>
@@ -52,6 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_gravity="center_vertical"
             android:paddingLeft="@dimen/detail_fragment_variation_margin"
+            android:paddingStart="@dimen/detail_fragment_variation_margin"
             android:orientation="vertical">
 
             <TextView
@@ -87,6 +91,7 @@
             android:layout_weight="1"
             android:layout_gravity="top"
             android:paddingRight="@dimen/list_item_margin"
+            android:paddingEnd="@dimen/list_item_margin"
             android:orientation="vertical">
 
             <LinearLayout
@@ -360,6 +365,7 @@
             android:layout_weight="1"
             android:layout_gravity="top"
             android:paddingLeft="@dimen/list_item_margin"
+            android:paddingStart="@dimen/list_item_margin"
             android:orientation="vertical">
 
             <LinearLayout
