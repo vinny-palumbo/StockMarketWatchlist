@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="http://schemas.android.com/tools">
     <string name="app_name">Tech Stocks</string>
     <string name="title_activity_detail">Details</string>
 
@@ -43,4 +43,29 @@
 
     <!--Default value-->
     <string name="default_value" translatable="false">--</string>
+
+    <!--Content Descriptions-->
+    <string name="accessibility_stockSymbol">Stock symbol: <xliff:g id="stockSymbol">%1$s</xliff:g></string>
+    <string name="accessibility_companyName">Company name: <xliff:g id="companyName">%1$s</xliff:g></string>
+    <string name="accessibility_currentPrice">Current price: <xliff:g id="currentPrice">%1$s</xliff:g></string>
+    <string name="accessibility_variationPercentage">Variation in percentage: <xliff:g id="variationPercentage">%1$s</xliff:g></string>
+    <string name="accessibility_variationAbsolute">Variation in dollars: <xliff:g id="variationAbsolute">%1$s</xliff:g></string>
+    <string name="accessibility_open">Open quote: <xliff:g id="open">%1$s</xliff:g></string>
+    <string name="accessibility_previousClose">Previous close quote: <xliff:g id="previousClose">%1$s</xliff:g></string>
+    <string name="accessibility_daysRange">Range of the day: <xliff:g id="daysRange">%1$s</xliff:g></string>
+    <string name="accessibility_yearRange">Range of the year: <xliff:g id="yearRange">%1$s</xliff:g></string>
+    <string name="accessibility_oneYrTargetPrice">One year target price: <xliff:g id="oneYrTargetPrice">%1$s</xliff:g></string>
+    <string name="accessibility_fiftyDayMovingAverage">Fifty day moving average: <xliff:g id="fiftyDayMovingAverage">%1$s</xliff:g></string>
+    <string name="accessibility_twoHundredDayMovingAverage">Two hundred day moving average: <xliff:g id="twoHundredDayMovingAverage">%1$s</xliff:g></string>
+    <string name="accessibility_volume">Volume of the day: <xliff:g id="volume">%1$s</xliff:g></string>
+    <string name="accessibility_averageDailyVolume">Average volume in a day: <xliff:g id="averageDailyVolume">%1$s</xliff:g></string>
+    <string name="accessibility_bookValue">Book value: <xliff:g id="bookValue">%1$s</xliff:g></string>
+    <string name="accessibility_marketCapitalization">Market capitalization: <xliff:g id="marketCapitalization">%1$s</xliff:g></string>
+    <string name="accessibility_ebitda">Earnings before interest, taxes, depreciation, and amortization: <xliff:g id="ebitda">%1$s</xliff:g></string>
+    <string name="accessibility_peRatio">Price per earnings ratio: <xliff:g id="peRatio">%1$s</xliff:g></string>
+    <string name="accessibility_epsEstimateCurrentYear">Earnings per share predicted for the current year: <xliff:g id="epsEstimateCurrentYear">%1$s</xliff:g></string>
+    <string name="accessibility_earningsShare">Actual earnings per share of the current year: <xliff:g id="earningsShare">%1$s</xliff:g></string>
+    <string name="accessibility_epsEstimateNextYear">Earnings per share predicted for the next year: <xliff:g id="epsEstimateNextYear">%1$s</xliff:g></string>
+    <string name="accessibility_dividend">Dividends in dollars and in percentage: <xliff:g id="dividend">%1$s</xliff:g></string>
+    <string name="accessibility_shortRatio">Short ratio: <xliff:g id="shortRatio">%1$s</xliff:g></string>
 </resources>

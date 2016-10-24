@@ -227,27 +227,71 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         String shortRatio = data.getString(COL_STOCKS_SHORT_RATIO);
 
         symbolTextView.setText(stockSymbol);
+        symbolTextView.setContentDescription(getContext().getString(R.string.accessibility_stockSymbol, stockSymbol));
+
         currentPriceTextView.setText(currentPrice);
+        currentPriceTextView.setContentDescription(getContext().getString(R.string.accessibility_currentPrice, currentPrice));
+
         variationPercentageTextView.setText(variationPercentage);
+        variationPercentageTextView.setContentDescription(getContext().getString(R.string.accessibility_variationPercentage, variationPercentage));
+
         variationAbsoluteTextView.setText(variationAbsolute);
+        variationAbsoluteTextView.setContentDescription(getContext().getString(R.string.accessibility_variationAbsolute, variationAbsolute));
+
         openTextView.setText(open);
+        openTextView.setContentDescription(getContext().getString(R.string.accessibility_open, open));
+
         previousCloseTextView.setText(previousClose);
+        previousCloseTextView.setContentDescription(getContext().getString(R.string.accessibility_previousClose, previousClose));
+
         daysRangeTextView.setText(daysRange);
+        daysRangeTextView.setContentDescription(getContext().getString(R.string.accessibility_daysRange, daysRange));
+
         yearRangeTextView.setText(yearRange);
+        yearRangeTextView.setContentDescription(getContext().getString(R.string.accessibility_yearRange, yearRange));
+
         oneYrTargetPriceTextView.setText(oneYrTargetPrice);
+        oneYrTargetPriceTextView.setContentDescription(getContext().getString(R.string.accessibility_oneYrTargetPrice, oneYrTargetPrice));
+
         fiftyDayMovingAverageTextView.setText(fiftyDayMovingAverage);
+        fiftyDayMovingAverageTextView.setContentDescription(getContext().getString(R.string.accessibility_fiftyDayMovingAverage, fiftyDayMovingAverage));
+
         twoHundredDayMovingAverageTextView.setText(twoHundredDayMovingAverage);
+        twoHundredDayMovingAverageTextView.setContentDescription(getContext().getString(R.string.accessibility_twoHundredDayMovingAverage, twoHundredDayMovingAverage));
+
         volumeTextView.setText(volume);
+        volumeTextView.setContentDescription(getContext().getString(R.string.accessibility_volume, volume));
+
         averageDailyVolumeTextView.setText(averageDailyVolume);
+        averageDailyVolumeTextView.setContentDescription(getContext().getString(R.string.accessibility_averageDailyVolume, averageDailyVolume));
+
         bookValueTextView.setText(bookValue);
+        bookValueTextView.setContentDescription(getContext().getString(R.string.accessibility_bookValue, bookValue));
+
         marketCapitalizationTextView.setText(marketCapitalization);
+        marketCapitalizationTextView.setContentDescription(getContext().getString(R.string.accessibility_marketCapitalization, marketCapitalization));
+
         ebitdaTextView.setText(ebitda);
+        ebitdaTextView.setContentDescription(getContext().getString(R.string.accessibility_ebitda, ebitda));
+
         peRatioTextView.setText(peRatio);
+        peRatioTextView.setContentDescription(getContext().getString(R.string.accessibility_peRatio, peRatio));
+
         epsEstimateCurrentYearTextView.setText(epsEstimateCurrentYear);
+        epsEstimateCurrentYearTextView.setContentDescription(getContext().getString(R.string.accessibility_epsEstimateCurrentYear, epsEstimateCurrentYear));
+
         earningsShareTextView.setText(earningsShare);
+        earningsShareTextView.setContentDescription(getContext().getString(R.string.accessibility_earningsShare, earningsShare));
+
         epsEstimateNextYearTextView.setText(epsEstimateNextYear);
+        epsEstimateNextYearTextView.setContentDescription(getContext().getString(R.string.accessibility_epsEstimateNextYear, epsEstimateNextYear));
+
         dividendTextView.setText(dividend);
+        dividendTextView.setContentDescription(getContext().getString(R.string.accessibility_dividend, dividend));
+
         shortRatioTextView.setText(shortRatio);
+        shortRatioTextView.setContentDescription(getContext().getString(R.string.accessibility_shortRatio, shortRatio));
+
     }
 
     @Override

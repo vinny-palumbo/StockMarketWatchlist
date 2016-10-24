@@ -50,18 +50,23 @@ public class WatchlistAdapter extends CursorAdapter {
         // Put data in TextViews
         TextView stockSymbolTextView = (TextView) view.findViewById(R.id.list_item_stock_symbol);
         stockSymbolTextView.setText(stockSymbol);
+        stockSymbolTextView.setContentDescription(context.getString(R.string.accessibility_stockSymbol, stockSymbol));
 
         TextView companyNameTextView = (TextView) view.findViewById(R.id.list_item_company_name);
         companyNameTextView.setText(companyName);
+        companyNameTextView.setContentDescription(context.getString(R.string.accessibility_companyName, companyName));
 
         TextView currentPriceTextView = (TextView) view.findViewById(R.id.list_item_current_price);
         currentPriceTextView.setText(currentPrice);
+        currentPriceTextView.setContentDescription(context.getString(R.string.accessibility_currentPrice, currentPrice));
 
         TextView variationPercentageTextView = (TextView) view.findViewById(R.id.list_item_variation_percentage);
         variationPercentageTextView.setText(variationPercentage);
+        variationPercentageTextView.setContentDescription(context.getString(R.string.accessibility_variationPercentage, variationPercentage));
 
         TextView variationAbsoluteTextView = (TextView) view.findViewById(R.id.list_item_variation_absolute);
         variationAbsoluteTextView.setText(variationAbsolute);
+        variationAbsoluteTextView.setContentDescription(context.getString(R.string.accessibility_variationAbsolute, variationAbsolute));
 
     }
 }
