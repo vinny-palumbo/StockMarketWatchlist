@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -289,6 +292,15 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         shortRatioTextView.setText(shortRatio);
         shortRatioTextView.setContentDescription(getContext().getString(R.string.accessibility_shortRatio, shortRatio));
 
+        // Toolbar
+        AppCompatActivity activity = (AppCompatActivity)getActivity();
+        Toolbar toolbarView = (Toolbar) getView().findViewById(R.id.toolbar);
+        activity.supportStartPostponedEnterTransition();
+        if ( null != toolbarView ) {
+            activity.setSupportActionBar(toolbarView);
+            activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
+            activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override
