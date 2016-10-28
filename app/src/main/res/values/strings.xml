@@ -1,6 +1,7 @@
 <resources xmlns:xliff="http://schemas.android.com/tools">
-    <string name="app_name">Tech Stocks</string>
+    <string name="app_name">Stock Watchlist</string>
     <string name="title_activity_detail">Details</string>
+    <string name="appbar_watchlist_title">Stock Watchlist</string>
 
     <!-- SyncAdapter related -->
     <string name="sync_account_type" translatable="false">stockmarketwatchlist.vinnypalumbo.com</string>

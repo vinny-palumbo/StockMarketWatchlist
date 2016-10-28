@@ -68,8 +68,7 @@ public class WatchlistFragment extends Fragment implements LoaderManager.LoaderC
         SYMBOL,
         NAME,
         CURRENT_PRICE,
-        PERCENT_CHANGE,
-        DOLLAR_CHANGE
+        PERCENT_CHANGE
     };
 
     // These indices are tied to STOCKS_COLUMNS.  If STOCKS_COLUMNS changes, these
@@ -79,7 +78,6 @@ public class WatchlistFragment extends Fragment implements LoaderManager.LoaderC
     static final int COL_STOCKS_NAME = 2;
     static final int COL_STOCKS_CURRENT_PRICE = 3;
     static final int COL_STOCKS_PERCENT_CHANGE = 4;
-    static final int COL_STOCKS_DOLLAR_CHANGE = 5;
 
     private WatchlistAdapter mWatchlistAdapter;
 

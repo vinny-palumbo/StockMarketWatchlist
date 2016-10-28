@@ -44,7 +44,6 @@ public class WatchlistAdapter extends CursorAdapter {
         String companyName= cursor.getString(WatchlistFragment.COL_STOCKS_NAME);
         String currentPrice= cursor.getString(WatchlistFragment.COL_STOCKS_CURRENT_PRICE);
         String variationPercentage= cursor.getString(WatchlistFragment.COL_STOCKS_PERCENT_CHANGE);
-        String variationAbsolute= cursor.getString(WatchlistFragment.COL_STOCKS_DOLLAR_CHANGE);
 
         // Put data in TextViews
         TextView stockSymbolTextView = (TextView) view.findViewById(R.id.list_item_stock_symbol);
@@ -62,10 +61,5 @@ public class WatchlistAdapter extends CursorAdapter {
         TextView variationPercentageTextView = (TextView) view.findViewById(R.id.list_item_variation_percentage);
         variationPercentageTextView.setText(variationPercentage);
         variationPercentageTextView.setContentDescription(context.getString(R.string.accessibility_variationPercentage, variationPercentage));
-
-        TextView variationAbsoluteTextView = (TextView) view.findViewById(R.id.list_item_variation_absolute);
-        variationAbsoluteTextView.setText(variationAbsolute);
-        variationAbsoluteTextView.setContentDescription(context.getString(R.string.accessibility_variationAbsolute, variationAbsolute));
-
     }
 }

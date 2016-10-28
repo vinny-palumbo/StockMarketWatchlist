@@ -5,13 +5,16 @@
 
     <!--Other margins-->
     <dimen name="list_item_margin">8dp</dimen>
-    <dimen name="detail_fragment_variation_margin">16dp</dimen>
+    <dimen name="detail_fragment_variation_percentage_margin">16dp</dimen>
+    <dimen name="detail_fragment_variation_dollars_margin">8dp</dimen>
     <dimen name="detail_fragment_details_margin">3dp</dimen>
     <dimen name="banner_ad_top_margin">16dp</dimen>
 
     <!--Text size-->
+    <dimen name="main_appbar_title">20dp</dimen>
+    <dimen name="main_percent_variation">15dp</dimen>
     <dimen name="very_large_text_size">40dp</dimen>
-    <dimen name="large_text_size">25dp</dimen>
+    <dimen name="larger_text_size">25dp</dimen>
     <dimen name="medium_text_size">18dp</dimen>
     <dimen name="small_text_size">13dp</dimen>
     <dimen name="very_small_text_size">11dp</dimen>
