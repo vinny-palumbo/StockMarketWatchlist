@@ -43,7 +43,6 @@ import static com.vinnypalumbo.stockmarketwatchlist.data.StocksProvider.Stocks.C
 
 public class StockMarketWatchlistSyncAdapter extends AbstractThreadedSyncAdapter {
 
-    private final String LOG_TAG = StockMarketWatchlistSyncAdapter.class.getSimpleName();
     public static final String ACTION_DATA_UPDATED =
             "com.vinnypalumbo.stockmarketwatchlist.ACTION_DATA_UPDATED";
 
@@ -76,13 +75,13 @@ public class StockMarketWatchlistSyncAdapter extends AbstractThreadedSyncAdapter
         final String QUERY = "query";
         final String RESULTS = "results";
         final String QUOTE = "quote";
-
+        // For Main screen
         final String SYMBOL = "symbol";
         final String NAME = "Name";
         final String CURRENT_PRICE = "Ask";
         final String PERCENT_CHANGE = "ChangeinPercent";
         final String DOLLAR_CHANGE = "Change";
-
+        // For Detail screen
         final String OPEN = "Open";
         final String PREVIOUS = "PreviousClose";
         final String DAY_RANGE = "DaysRange";
@@ -92,7 +91,6 @@ public class StockMarketWatchlistSyncAdapter extends AbstractThreadedSyncAdapter
         final String TWO_HUNDRED_AVERAGE = "TwoHundreddayMovingAverage";
         final String VOLUME = "Volume";
         final String AVERAGE_VOLUME = "AverageDailyVolume";
-
         final String BOOK_VALUE = "BookValue";
         final String MARKET_CAP = "MarketCapitalization";
         final String EBITDA = "EBITDA";
@@ -114,12 +112,13 @@ public class StockMarketWatchlistSyncAdapter extends AbstractThreadedSyncAdapter
             Vector<ContentValues> cVVector = new Vector<ContentValues>(quoteArray.length());
 
             for(int i = 0; i < quoteArray.length(); i++) {
+                // main screen
                 String stockSymbol;
                 String companyName;
                 String currentPrice;
                 String variationPercentage;
                 String variationAbsolute;
-
+                //detail screen
                 String open;
                 String previousClose;
                 String daysRange;
@@ -129,7 +128,6 @@ public class StockMarketWatchlistSyncAdapter extends AbstractThreadedSyncAdapter
                 String twoHundredDayMovingAverage;
                 String volume;
                 String averageDailyVolume;
-
                 String bookValue;
                 String marketCapitalization;
                 String ebitda;
@@ -140,21 +138,21 @@ public class StockMarketWatchlistSyncAdapter extends AbstractThreadedSyncAdapter
                 String dividendShare;
                 String dividendYield;
                 String shortRatio;
-
-                // To be formatted
-                String dividend;
+                // Derived database column
+                String isUp;
 
 
                 // Get the JSON object representing the stock object
                 JSONObject stockObject = quoteArray.getJSONObject(i);
 
                 // Get the properties of each stock objects
+                // Main screen
                 stockSymbol = stockObject.getString(SYMBOL);
                 companyName = stockObject.getString(NAME);
                 currentPrice = stockObject.getString(CURRENT_PRICE);
                 variationPercentage = stockObject.getString(PERCENT_CHANGE);
                 variationAbsolute = stockObject.getString(DOLLAR_CHANGE) + "$";
-
+                // Detail screen
                 open = stockObject.getString(OPEN);
                 previousClose = stockObject.getString(PREVIOUS);
                 daysRange = stockObject.getString(DAY_RANGE);
@@ -164,7 +162,6 @@ public class StockMarketWatchlistSyncAdapter extends AbstractThreadedSyncAdapter
                 twoHundredDayMovingAverage = stockObject.getString(TWO_HUNDRED_AVERAGE);
                 volume = stockObject.getString(VOLUME);
                 averageDailyVolume = stockObject.getString(AVERAGE_VOLUME);
-
                 bookValue = stockObject.getString(BOOK_VALUE);
                 marketCapitalization = stockObject.getString(MARKET_CAP);
                 ebitda = stockObject.getString(EBITDA);
@@ -175,15 +172,22 @@ public class StockMarketWatchlistSyncAdapter extends AbstractThreadedSyncAdapter
                 dividendShare = stockObject.getString(DIVIDEND_DOLLAR);
                 dividendYield = stockObject.getString(DIVIDEND_YIELD);
                 shortRatio = stockObject.getString(SHORT_RATIO);
+                // Derived database column
+                if(variationPercentage.substring(0,1).equals("+")){
+                    isUp = "yes";
+                }else{
+                    isUp = "no";
+                }
 
                 ContentValues stockValues = new ContentValues();
 
+                // Main screen
                 stockValues.put(StockColumns.SYMBOL, stockSymbol);
                 stockValues.put(StockColumns.NAME, companyName);
                 stockValues.put(StockColumns.CURRENT_PRICE, currentPrice);
                 stockValues.put(StockColumns.PERCENT_CHANGE, variationPercentage);
                 stockValues.put(StockColumns.DOLLAR_CHANGE, variationAbsolute);
-
+                // Detail screen
                 stockValues.put(StockColumns.OPEN, open);
                 stockValues.put(StockColumns.PREVIOUS, previousClose);
                 stockValues.put(StockColumns.DAY_RANGE, daysRange);
@@ -193,7 +197,6 @@ public class StockMarketWatchlistSyncAdapter extends AbstractThreadedSyncAdapter
                 stockValues.put(StockColumns.TWO_HUNDRED_AVERAGE, twoHundredDayMovingAverage);
                 stockValues.put(StockColumns.VOLUME, volume);
                 stockValues.put(StockColumns.AVERAGE_VOLUME, averageDailyVolume);
-
                 stockValues.put(StockColumns.BOOK_VALUE, bookValue);
                 stockValues.put(StockColumns.MARKET_CAP, marketCapitalization);
                 stockValues.put(StockColumns.EBITDA, ebitda);
@@ -204,7 +207,8 @@ public class StockMarketWatchlistSyncAdapter extends AbstractThreadedSyncAdapter
                 stockValues.put(StockColumns.DIVIDEND_DOLLAR, dividendShare);
                 stockValues.put(StockColumns.DIVIDEND_YIELD, dividendYield);
                 stockValues.put(StockColumns.SHORT_RATIO, shortRatio);
-
+                // Derived database column
+                stockValues.put(StockColumns.IS_UP, isUp);
 
                 cVVector.add(stockValues);
             }

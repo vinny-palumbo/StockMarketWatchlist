@@ -7,4 +7,8 @@
     <color name="grey">#8e8e8e</color>
     <color name="drak_grey">#454545</color>
     <color name="off_white">#e1e1e1</color>
+    <color name="red_light">#fd3f42</color>
+    <color name="red_dark">#9e0002</color>
+    <color name="green_light">#8fff39</color>
+    <color name="green_dark">#439b00</color>
 </resources>

@@ -30,6 +30,7 @@ import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.EPS_ACTUAL
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.EPS_ESTIMATE_CURRENT;
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.EPS_ESTIMATE_NEXT;
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.FIFTY_AVERAGE;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.IS_UP;
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.MARKET_CAP;
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.NAME;
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.OPEN;
@@ -78,7 +79,8 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             EPS_ESTIMATE_NEXT,
             DIVIDEND_DOLLAR,
             DIVIDEND_YIELD,
-            SHORT_RATIO
+            SHORT_RATIO,
+            IS_UP
     };
 
     // these constants correspond to the projection defined above, and must change if the
@@ -108,6 +110,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     static final int COL_STOCKS_DIVIDEND_DOLLAR = 22;
     static final int COL_STOCKS_DIVIDEND_YIELD = 23;
     static final int COL_STOCKS_SHORT_RATIO = 24;
+    static final int COL_STOCKS_IS_UP = 25;
 
     private TextView symbolTextView;
     private TextView currentPriceTextView;
@@ -131,6 +134,10 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     private TextView epsEstimateNextYearTextView;
     private TextView dividendTextView;
     private TextView shortRatioTextView;
+
+    // for price & variations font colors
+    int color_light;
+    int color_dark;
 
     private AdView mAdView;
 
@@ -225,6 +232,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         String epsEstimateNextYear = data.getString(COL_STOCKS_EPS_ESTIMATE_NEXT);
         String dividend = "$" + data.getString(COL_STOCKS_DIVIDEND_DOLLAR) + "/" + data.getString(COL_STOCKS_DIVIDEND_YIELD) + "%";
         String shortRatio = data.getString(COL_STOCKS_SHORT_RATIO);
+        String isUp = data.getString(COL_STOCKS_IS_UP);
 
         symbolTextView.setText(stockSymbol);
         symbolTextView.setContentDescription(getContext().getString(R.string.accessibility_stockSymbol, stockSymbol));
@@ -291,6 +299,18 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
         shortRatioTextView.setText(shortRatio);
         shortRatioTextView.setContentDescription(getContext().getString(R.string.accessibility_shortRatio, shortRatio));
+
+        // set price and variations font color depending on positive or negative variation
+        if(isUp.equals("yes")){
+            color_light = R.color.green_light;
+            color_dark = R.color.green_dark;
+        }else{
+            color_light = R.color.red_light;
+            color_dark = R.color.red_dark;
+        }
+        currentPriceTextView.setTextColor(getContext().getResources().getColor(color_light));
+        variationPercentageTextView.setTextColor(getContext().getResources().getColor(color_dark));
+        variationAbsoluteTextView.setTextColor(getContext().getResources().getColor(color_dark));
 
         // Toolbar
         AppCompatActivity activity = (AppCompatActivity)getActivity();

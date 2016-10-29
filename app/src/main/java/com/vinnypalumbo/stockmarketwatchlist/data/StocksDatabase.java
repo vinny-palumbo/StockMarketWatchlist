@@ -11,7 +11,7 @@ import net.simonvt.schematic.annotation.Table;
 public class StocksDatabase {
     private StocksDatabase(){}
 
-    public static final int VERSION = 1;
+    public static final int VERSION = 3;
 
     @Table(StockColumns.class) public static final String STOCKS = "stocks";
 }

@@ -29,7 +29,6 @@ public class WatchlistAdapter extends CursorAdapter {
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         View view = LayoutInflater.from(context).inflate(R.layout.list_item_watchlist, parent, false);
-
         return view;
     }
 
@@ -44,6 +43,7 @@ public class WatchlistAdapter extends CursorAdapter {
         String companyName= cursor.getString(WatchlistFragment.COL_STOCKS_NAME);
         String currentPrice= cursor.getString(WatchlistFragment.COL_STOCKS_CURRENT_PRICE);
         String variationPercentage= cursor.getString(WatchlistFragment.COL_STOCKS_PERCENT_CHANGE);
+        String isUp= cursor.getString(WatchlistFragment.COL_STOCKS_IS_UP);
 
         // Put data in TextViews
         TextView stockSymbolTextView = (TextView) view.findViewById(R.id.list_item_stock_symbol);
@@ -61,5 +61,20 @@ public class WatchlistAdapter extends CursorAdapter {
         TextView variationPercentageTextView = (TextView) view.findViewById(R.id.list_item_variation_percentage);
         variationPercentageTextView.setText(variationPercentage);
         variationPercentageTextView.setContentDescription(context.getString(R.string.accessibility_variationPercentage, variationPercentage));
+
+        // set list item font color depending on positive or negative variation
+        int color_light;
+        int color_dark;
+        if(isUp.equals("yes")){
+            color_light = R.color.green_light;
+            color_dark = R.color.green_dark;
+        }else{
+            color_light = R.color.red_light;
+            color_dark = R.color.red_dark;
+        }
+        stockSymbolTextView.setTextColor(context.getResources().getColor(color_light));
+        companyNameTextView.setTextColor(context.getResources().getColor(color_dark));
+        currentPriceTextView.setTextColor(context.getResources().getColor(color_light));
+        variationPercentageTextView.setTextColor(context.getResources().getColor(color_dark));
     }
 }

@@ -38,6 +38,7 @@ import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.EPS_ACTUAL
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.EPS_ESTIMATE_CURRENT;
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.EPS_ESTIMATE_NEXT;
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.FIFTY_AVERAGE;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.IS_UP;
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.MARKET_CAP;
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.NAME;
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.OPEN;
@@ -68,7 +69,8 @@ public class WatchlistFragment extends Fragment implements LoaderManager.LoaderC
         SYMBOL,
         NAME,
         CURRENT_PRICE,
-        PERCENT_CHANGE
+        PERCENT_CHANGE,
+        IS_UP
     };
 
     // These indices are tied to STOCKS_COLUMNS.  If STOCKS_COLUMNS changes, these
@@ -78,6 +80,7 @@ public class WatchlistFragment extends Fragment implements LoaderManager.LoaderC
     static final int COL_STOCKS_NAME = 2;
     static final int COL_STOCKS_CURRENT_PRICE = 3;
     static final int COL_STOCKS_PERCENT_CHANGE = 4;
+    static final int COL_STOCKS_IS_UP = 5;
 
     private WatchlistAdapter mWatchlistAdapter;
 

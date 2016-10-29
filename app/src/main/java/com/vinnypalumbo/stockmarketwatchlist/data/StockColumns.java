@@ -36,4 +36,5 @@ public class StockColumns {
     @DataType(DataType.Type.TEXT) @NotNull public static final String DIVIDEND_DOLLAR = "DividendShare";
     @DataType(DataType.Type.TEXT) @NotNull public static final String DIVIDEND_YIELD = "DividendYield";
     @DataType(DataType.Type.TEXT) @NotNull public static final String SHORT_RATIO = "ShortRatio";
+    @DataType(DataType.Type.TEXT) @NotNull public static final String IS_UP= "isUp";
 }
