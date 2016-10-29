@@ -18,6 +18,7 @@ import com.vinnypalumbo.stockmarketwatchlist.R;
 import com.vinnypalumbo.stockmarketwatchlist.data.StocksProvider;
 
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.CURRENT_PRICE;
+import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.IS_UP;
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.PERCENT_CHANGE;
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.SYMBOL;
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns._ID;
@@ -33,13 +34,15 @@ public class CollectionWidgetRemoteViewsService extends RemoteViewsService {
         _ID,
         SYMBOL,
         CURRENT_PRICE,
-        PERCENT_CHANGE
+        PERCENT_CHANGE,
+        IS_UP
     };
     // these indices must match the projection
     static final int INDEX_STOCKS_ID = 0;
     static final int INDEX_STOCKS_SYMBOL = 1;
     static final int INDEX_STOCKS_CURRENT_PRICE = 2;
     static final int INDEX_STOCKS_PERCENT_CHANGE = 3;
+    static final int INDEX_STOCKS_IS_UP = 4;
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
@@ -94,11 +97,27 @@ public class CollectionWidgetRemoteViewsService extends RemoteViewsService {
                 String stockSymbol = data.getString(INDEX_STOCKS_SYMBOL);
                 String currentPrice = data.getString(INDEX_STOCKS_CURRENT_PRICE);
                 String variationPercentage = data.getString(INDEX_STOCKS_PERCENT_CHANGE);
+                String isUp = data.getString(INDEX_STOCKS_IS_UP);
 
                 views.setTextViewText(R.id.widget_stock_symbol, stockSymbol);
                 views.setTextViewText(R.id.widget_current_price, currentPrice);
                 views.setTextViewText(R.id.widget_variation_percentage, variationPercentage);
 
+                // set list item font color depending on positive or negative variation
+                int color_light;
+                int color_dark;
+                if(isUp.equals("yes")){
+                    color_light = R.color.green_light;
+                    color_dark = R.color.green_dark;
+                }else{
+                    color_light = R.color.red_light;
+                    color_dark = R.color.red_dark;
+                }
+                views.setTextColor(R.id.widget_stock_symbol,getApplication().getResources().getColor(color_light));
+                views.setTextColor(R.id.widget_current_price,getApplication().getResources().getColor(color_light));
+                views.setTextColor(R.id.widget_variation_percentage,getApplication().getResources().getColor(color_dark));
+
+                // Create intent to open Detail screen when widget list item is clicked
                 final Intent fillInIntent = new Intent();
                 Uri stockUri = StocksProvider.Stocks.withSymbol(stockSymbol);
                 fillInIntent.setData(stockUri);
