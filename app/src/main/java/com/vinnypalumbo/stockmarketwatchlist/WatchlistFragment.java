@@ -3,7 +3,6 @@ package com.vinnypalumbo.stockmarketwatchlist;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -14,43 +13,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.vinnypalumbo.stockmarketwatchlist.data.StocksProvider;
 import com.vinnypalumbo.stockmarketwatchlist.sync.StockMarketWatchlistSyncAdapter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.AVERAGE_VOLUME;
-import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.BOOK_VALUE;
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.CURRENT_PRICE;
-import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.DAY_RANGE;
-import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.DIVIDEND_DOLLAR;
-import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.DIVIDEND_YIELD;
-import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.DOLLAR_CHANGE;
-import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.EBITDA;
-import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.EPS_ACTUAL_CURRENT;
-import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.EPS_ESTIMATE_CURRENT;
-import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.EPS_ESTIMATE_NEXT;
-import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.FIFTY_AVERAGE;
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.IS_UP;
-import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.MARKET_CAP;
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.NAME;
-import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.OPEN;
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.PERCENT_CHANGE;
-import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.PE_RATIO;
-import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.PREVIOUS;
-import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.SHORT_RATIO;
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.SYMBOL;
-import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.TARGET;
-import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.TWO_HUNDRED_AVERAGE;
-import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.VOLUME;
-import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns.YEAR_RANGE;
 import static com.vinnypalumbo.stockmarketwatchlist.data.StockColumns._ID;
 import static com.vinnypalumbo.stockmarketwatchlist.data.StocksProvider.Stocks.CONTENT_URI;
 
@@ -176,7 +149,7 @@ public class WatchlistFragment extends Fragment implements LoaderManager.LoaderC
             TextView tv = (TextView) getView().findViewById(R.id.listview_watchlist_empty);
             if ( tv != null) {
                 int message = R.string.empty_watchlist;
-                @StockMarketWatchlistSyncAdapter.StocksStatus int stocksStatus = Utility.getStocksStatus(getActivity());
+                @StockMarketWatchlistSyncAdapter.StocksStatus int stocksStatus = Utilities.getStocksStatus(getActivity());
                 switch (stocksStatus) {
                     case StockMarketWatchlistSyncAdapter.STOCKS_STATUS_SERVER_DOWN:
                         message = R.string.empty_watchlist_server_down;
@@ -185,7 +158,7 @@ public class WatchlistFragment extends Fragment implements LoaderManager.LoaderC
                         message = R.string.empty_watchlist_server_error;
                         break;
                     default:
-                        if (!Utility.isNetworkAvailable(getActivity()) ) {
+                        if (!Utilities.isNetworkAvailable(getActivity()) ) {
                             message = R.string.empty_watchlist_no_network;
                         }
                 }

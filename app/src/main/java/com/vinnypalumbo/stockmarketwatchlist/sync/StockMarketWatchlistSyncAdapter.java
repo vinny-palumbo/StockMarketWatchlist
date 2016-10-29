@@ -35,6 +35,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Vector;
 
+import static com.vinnypalumbo.stockmarketwatchlist.Utilities.truncateCurrentPrice;
+import static com.vinnypalumbo.stockmarketwatchlist.Utilities.truncateVariation;
 import static com.vinnypalumbo.stockmarketwatchlist.data.StocksProvider.Stocks.CONTENT_URI;
 
 /**
@@ -151,7 +153,7 @@ public class StockMarketWatchlistSyncAdapter extends AbstractThreadedSyncAdapter
                 companyName = stockObject.getString(NAME);
                 currentPrice = stockObject.getString(CURRENT_PRICE);
                 variationPercentage = stockObject.getString(PERCENT_CHANGE);
-                variationAbsolute = stockObject.getString(DOLLAR_CHANGE) + "$";
+                variationAbsolute = stockObject.getString(DOLLAR_CHANGE);
                 // Detail screen
                 open = stockObject.getString(OPEN);
                 previousClose = stockObject.getString(PREVIOUS);
@@ -172,6 +174,12 @@ public class StockMarketWatchlistSyncAdapter extends AbstractThreadedSyncAdapter
                 dividendShare = stockObject.getString(DIVIDEND_DOLLAR);
                 dividendYield = stockObject.getString(DIVIDEND_YIELD);
                 shortRatio = stockObject.getString(SHORT_RATIO);
+
+                // Values needed to be formatted
+                currentPrice = truncateCurrentPrice(currentPrice);
+                variationPercentage = truncateVariation(variationPercentage, true);
+                variationAbsolute = truncateVariation(variationAbsolute, false) + "$";
+
                 // Derived database column
                 if(variationPercentage.substring(0,1).equals("+")){
                     isUp = "yes";
